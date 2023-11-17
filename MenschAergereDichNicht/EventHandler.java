@@ -49,6 +49,10 @@ public class EventHandler implements KeyListener {
             if(e.getKeyCode() == KeyEvent.VK_F5) {
                 frame.repaint();
             }
+        if(e.getKeyCode() == KeyEvent.VK_F2) {
+            frame.dispose();
+            Frame.FrameUI();
+        }
 
         if(e.getKeyCode() == KeyEvent.VK_F11 ) {
             refreshJFrame();
@@ -78,6 +82,10 @@ public class EventHandler implements KeyListener {
 
     void refreshJFrame() {
         frame = Frame.frame;
+    }
+
+    void addKeyListener() {
+        frame.addKeyListener(this);
     }
 
     void addResizeListener() {

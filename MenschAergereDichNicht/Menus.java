@@ -36,7 +36,7 @@ public class Menus {
     void Buttons() {
     
     int MiddleX = frame.getWidth() / 2;
-    int MiddleY = frame.getHeight() / 2 + 100;
+    int MiddleY = frame.getHeight() / 2 + 200;
     int Abstand = 25;
         
         JLabel[] Button = new JLabel[4 + 1];

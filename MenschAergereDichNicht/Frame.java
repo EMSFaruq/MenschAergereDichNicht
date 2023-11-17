@@ -45,13 +45,13 @@ class Frame {
         Color color = new Color(42, 42, 42);
         frame.getContentPane().setBackground(color);
         
+        EventHandler handler = new EventHandler();
+        handler.addKeyListener();
+        handler.addResizeListener();
+
         Menus menus = new Menus();
         menus.Buttons();
         frame.repaint();
-
-        EventHandler handler = new EventHandler();
-        frame.addKeyListener(new EventHandler());
-        handler.addResizeListener();
 
         Board background = new Board();
         background.createBackground();
