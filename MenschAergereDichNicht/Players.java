@@ -226,9 +226,9 @@ public class Players {
         return -1;
     }
 
-    static int getPlayer(JLabel[] Playerlabel, JLabel Player) {
-        for (int i = 1; i < Playerlabel.length; i++) {
-            if(Playerlabel[i] == Player) {
+    static int getPlayer(JLabel[] Button, JLabel Player) {
+        for (int i = 1; i < Button.length; i++) {
+            if(Button[i] == Player) {
                 return i;
             }
         }

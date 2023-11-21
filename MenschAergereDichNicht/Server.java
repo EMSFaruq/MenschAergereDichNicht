@@ -51,7 +51,7 @@ public class Server {
             Server1.setFont(CustomFont);
             frame.add(Server1);
         } catch (Exception e) {
-            frame.removeAll();
+            frame.getContentPane().removeAll();
             frame.repaint();
             game.create(9, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\NoServersMenu.png"), "Left", "Top");            
         }

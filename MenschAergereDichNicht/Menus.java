@@ -78,9 +78,9 @@ public class Menus {
         
             @Override
             public void mouseClicked(MouseEvent e) {
-                switch (Players.getPlayer(Button, (JLabel) e.getSource())) {
+                switch (Game.getObject(Button, (JLabel) e.getSource())) {
                 case 1:
-                    frame.removeAll();
+                    frame.getContentPane().removeAll();
                     frame.repaint();
                     game.createPlayers();
                     game.createCube();
@@ -123,14 +123,14 @@ public class Menus {
                 EscImg = new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\EscMenu(MP).png");
             }
             if(Menu == "Open") {
-                frame.removeAll();
+                frame.getContentPane().removeAll();
                 frame.repaint();
                 game.create(2, EscImg, "Left", "Top");
                
             }
 
             if(Menu == "Close") {         
-                frame.removeAll();       
+                frame.getContentPane().removeAll();       
                 frame.repaint();
                 game.refreshAll();
                 game.wait(50);

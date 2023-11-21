@@ -9,7 +9,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.util.Random;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -47,7 +46,17 @@ public class Game {
         }
 
     }
-
+    
+    static int getObject(JLabel[] Button, JLabel Player) {
+        for (int i = 1; i < Button.length; i++) {
+            if(Button[i] == Player) {
+                return i;
+            }
+        }
+        System.out.println("Object nicht gefunden!");
+        return -1;
+    }
+    
     public void createCube() {
         dice = new Dice();
         dice.createDice();
@@ -113,6 +122,7 @@ public class Game {
 
                 int width = getWidth();
                 int height = getHeight();
+
                 // PADDDIIINNNNG MORRGEN MACHENNNNNN
                 // PADDDIIINNNNG MORRGEN MACHENNNNNN
                 // PADDDIIINNNNG MORRGEN MACHENNNNNN
@@ -129,21 +139,19 @@ public class Game {
                 // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
                 
                 RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(ratio(40), ratio(40), ratio(35), ratio(40), cornerRadius, cornerRadius);
-
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
                 g2d.draw(roundedRectangle);
-
                 g2d.dispose();
             }
         };
     }
-    static int ratio(int in) {
-        return in * frame.getWidth() / 1920;
+    static int ratio(int size) {
+        return size * frame.getWidth() / 1920;
     }
 
     void createText(int ID, String Text, String PosX, String PosY) {
         refreshJFrame();
+
         // Create first
         Font CustomFont = new Font("Poor Richard", Font.PLAIN, ratio(100));
         TextLabel[ID] = createRoundedBorderLabel(Text, 16, -25);
@@ -198,7 +206,7 @@ public class Game {
                         Menus menus = new Menus();
 
                         if (ID == 1 || ID == 2) {
-                            frame.removeAll();
+                            frame.getContentPane().removeAll();
                             frame.repaint();
                             menus.Buttons();
                         }
