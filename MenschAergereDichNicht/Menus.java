@@ -29,7 +29,7 @@ public class Menus {
 
     void startMenu() {
         img = new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\Mainmenu.png");
-        game.create(5, img, "0", "0");
+        game.create(5, new ImageIcon(img.getImage().getScaledInstance(img.getIconWidth() - 16 * frame.getWidth() / 1920, img.getIconHeight() - 39 * frame.getHeight() / 1080, Image.SCALE_SMOOTH)), "0", "0");
         
         }
 
@@ -41,7 +41,6 @@ public class Menus {
         
         JLabel[] Button = new JLabel[4 + 1];
         for (int i = 1; i <= 4 ; i++) {
-            Game game = new Game();
             
             if(i == 1) {
                 img = new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\LocalButton.png");
@@ -81,7 +80,7 @@ public class Menus {
             public void mouseClicked(MouseEvent e) {
                 switch (Players.getPlayer(Button, (JLabel) e.getSource())) {
                 case 1:
-                    frame.getContentPane().removeAll();
+                    frame.removeAll();
                     frame.repaint();
                     game.createPlayers();
                     game.createCube();
@@ -108,6 +107,8 @@ public class Menus {
 
         });
     }
+        game.createText(1, "Local", "0", "0");
+        game.refreshJFrame();
         previewPicture();
         startMenu();
     }
@@ -122,16 +123,16 @@ public class Menus {
                 EscImg = new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\EscMenu(MP).png");
             }
             if(Menu == "Open") {
-                frame.getContentPane().removeAll();
-                game.create(2, EscImg, "Left", "Top");
+                frame.removeAll();
                 frame.repaint();
+                game.create(2, EscImg, "Left", "Top");
                
             }
 
             if(Menu == "Close") {         
-                frame.getContentPane().removeAll();       
+                frame.removeAll();       
+                frame.repaint();
                 game.refreshAll();
-                frame.repaint(); 
                 game.wait(50);
             }
     }

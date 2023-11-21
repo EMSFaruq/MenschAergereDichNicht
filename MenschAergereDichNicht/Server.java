@@ -32,23 +32,28 @@ public class Server {
         frame.getContentPane().removeAll();
         frame.repaint();
         createServer();
+        
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
         scanPorts(1);
+        
         try {
             JLabel Server1 = new JLabel("Localhost: " + Server.get(0));
             Server1.setLocation(frame.getWidth() / 4, frame.getHeight() / 4);
             Server1.setSize(250, 125);
 
-            Font customFont = new Font("Poor Richard", Font.PLAIN, 50);
-            Server1.setFont(customFont);
+            Font CustomFont = new Font("Poor Richard", Font.PLAIN, 50);
+            Server1.setFont(CustomFont);
             frame.add(Server1);
         } catch (Exception e) {
-        game.create(9, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\NoServersMenu.png"), "Left", "Top");            
+            frame.removeAll();
+            frame.repaint();
+            game.create(9, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\NoServersMenu.png"), "Left", "Top");            
         }
         game.create(1, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\BackButton.png"), "Middle", "Bottom");
         game.create(3, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\Multiplayermenu.png"), "Left", "Top");
