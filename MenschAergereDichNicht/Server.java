@@ -1,7 +1,7 @@
 package MenschAergereDichNicht;
 
-
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -15,7 +15,7 @@ public class Server {
 
     JFrame frame = Frame.frame;
     Game game = new Game();
-    String LocalIp = "192.168.113.123";
+    String LocalIP;
     int MinPort = 1;
     int MaxPort = 10;
     Font customFont;
@@ -36,8 +36,7 @@ public class Server {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("Thread konnte nicht warten!");
         }
 
         scanPorts(1);
@@ -90,10 +89,14 @@ public class Server {
     }
 
     boolean checkPort(int CurrentPort) {
-
+    try {
+        LocalIP = Inet4Address.getLocalHost().getHostAddress();
+    } catch (Exception e) {
+        System.out.println("IP nicht gefunden!");
+    }
         Thread PortThread = new Thread(() -> {
         
-        try(Socket client = new Socket(LocalIp, CurrentPort)){
+        try(Socket client = new Socket(LocalIP, CurrentPort)){
             result = true;
         } catch (Exception e) {
             result = false;
