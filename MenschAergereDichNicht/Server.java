@@ -53,10 +53,10 @@ public class Server {
         } catch (Exception e) {
             frame.getContentPane().removeAll();
             frame.repaint();
-            game.create(9, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\NoServersMenu.png"), "Left", "Top");            
+            game.create(9, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\NoServersMenu.png"), "Left", "Top", true);            
         }
-        game.create(1, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\BackButton.png"), "Middle", "Bottom");
-        game.create(3, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\Multiplayermenu.png"), "Left", "Top");
+        game.create(1, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\BackButton.png"), "Middle", "Bottom", false);
+        game.create(3, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\Multiplayermenu.png"), "Left", "Top", true);
     }
 
     static void createServer() {

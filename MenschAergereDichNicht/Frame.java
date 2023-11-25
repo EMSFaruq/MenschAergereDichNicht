@@ -59,6 +59,9 @@ class Frame {
         frame.setVisible(true);
     }
     
+    static int ratio(int size) {
+        return size * frame.getWidth() / 1920;
+    }
     
     static int getDefaultScreen() {
         for (int i = 0; i < gd.length; i++) {

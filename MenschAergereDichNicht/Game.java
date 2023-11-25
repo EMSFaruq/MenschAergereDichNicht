@@ -120,9 +120,6 @@ public class Game {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g.create();
 
-                int width = getWidth();
-                int height = getHeight();
-
                 // PADDDIIINNNNG MORRGEN MACHENNNNNN
                 // PADDDIIINNNNG MORRGEN MACHENNNNNN
                 // PADDDIIINNNNG MORRGEN MACHENNNNNN
@@ -138,27 +135,24 @@ public class Game {
                 // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
                 // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
                 
-                RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(ratio(40), ratio(40), ratio(35), ratio(40), cornerRadius, cornerRadius);
+                RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(Frame.ratio(40), Frame.ratio(40), Frame.ratio(35), Frame.ratio(40), cornerRadius, cornerRadius);
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.draw(roundedRectangle);
                 g2d.dispose();
             }
         };
     }
-    static int ratio(int size) {
-        return size * frame.getWidth() / 1920;
-    }
 
     void createText(int ID, String Text, String PosX, String PosY) {
         refreshJFrame();
 
         // Create first
-        Font CustomFont = new Font("Poor Richard", Font.PLAIN, ratio(100));
-        TextLabel[ID] = createRoundedBorderLabel(Text, 16, -25);
+        Font CustomFont = new Font("Poor Richard", Font.PLAIN, Frame.ratio(100));
+        TextLabel[ID] = createRoundedBorderLabel(Text, 16, 50);
         TextLabel[ID].setFont(CustomFont);
         TextLabel[ID].setHorizontalAlignment(JLabel.CENTER);
         TextLabel[ID].setVerticalAlignment(JLabel.CENTER);
-        TextLabel[ID].setSize(ratio(250), ratio(125));
+        TextLabel[ID].setSize(Frame.ratio(250), Frame.ratio(125));
 
         if(LabelInfos) {
             System.out.println("ID: " + ID + " TextSize: " + TextLabel[ID].getFont().getSize());
@@ -170,22 +164,35 @@ public class Game {
             int LocY = Integer.parseInt(PosY);
             TextLabel[ID].setLocation(LocX, LocY);
         } catch (Exception e) {
-        StringToPos(TextLabel, ID, PosX, PosY);
+             StringToPos(TextLabel, ID, PosX, PosY);
         }
         frame.add(TextLabel[ID]);
-    }
+        }
 
-    void create(int ID, ImageIcon icon, String PosX, String PosY) {
+    void create(int ID, ImageIcon icon, String PosX, String PosY, boolean RatioByWindow) {
         refreshJFrame();
         IconLabel[ID] = new JLabel();
-        icon = new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth() * frame.getWidth() / 1920, 
-        icon.getIconHeight() * frame.getHeight() / 1080, Image.SCALE_DEFAULT));
+
+        // Fulscreen-Mode LabelSize (Auto)
+        icon = new ImageIcon(icon.getImage().getScaledInstance(
+            Frame.ratio(icon.getIconWidth()), 
+            Frame.ratio(icon.getIconHeight()), 
+            Image.SCALE_DEFAULT));
+
+        // Window-Mode LabelSize
+         if(RatioByWindow) {
+            if(!frame.isUndecorated()) { 
+                icon = new ImageIcon(icon.getImage().getScaledInstance(
+                Frame.ratio(icon.getIconWidth()), 
+                Frame.ratio(icon.getIconHeight()), 
+                Image.SCALE_DEFAULT));
+            }
+         }
         IconLabel[ID].setSize(icon.getIconWidth(), icon.getIconHeight());
         IconLabel[ID].setIcon(icon);
         if (LabelInfos) {
             System.out.println("ID: " + ID + " IconSize: " + icon.getIconWidth() + " " + icon.getIconHeight());
-            System.out
-                    .println("ID: " + ID + " LabelSize: " + IconLabel[ID].getWidth() + " " + IconLabel[ID].getHeight());
+            System.out.println("ID: " + ID + " LabelSize: " + IconLabel[ID].getWidth() + " " + IconLabel[ID].getHeight());
             System.out.println("ID: " + ID + " Location: " + IconLabel[ID].getX() + " " + IconLabel[ID].getY());
         }
 

@@ -16,7 +16,7 @@ public class Dice {
     void createDice() {
         refreshJFrame();
         String File = "WaitDice.png";
-        game.create(7, getIcon(File), "Middle", "Middle");
+        game.create(7, getIcon(File), "Middle", "Middle", false);
     }
     
     public void refresh() {
