@@ -33,8 +33,8 @@ public class Game {
     }
 
     public void createPlayers() {
-        // TestPlayer testPlayer = new TestPlayer();
-        // testPlayer.Player();
+        TestPlayer testPlayer = new TestPlayer();
+        testPlayer.Player();
 
         players = new Players();
         players.Player();
@@ -148,7 +148,8 @@ public class Game {
 
         // Create first
         Font CustomFont = new Font("Poor Richard", Font.PLAIN, Frame.ratio(100));
-        TextLabel[ID] = createRoundedBorderLabel(Text, 16, 50);
+        // TextLabel[ID] = createRoundedBorderLabel(Text, 16, 50);
+        TextLabel[ID] = new JLabel();
         TextLabel[ID].setFont(CustomFont);
         TextLabel[ID].setHorizontalAlignment(JLabel.CENTER);
         TextLabel[ID].setVerticalAlignment(JLabel.CENTER);
@@ -175,19 +176,24 @@ public class Game {
 
         // Fulscreen-Mode LabelSize (Auto)
         icon = new ImageIcon(icon.getImage().getScaledInstance(
-            Frame.ratio(icon.getIconWidth()), 
-            Frame.ratio(icon.getIconHeight()), 
+            Frame.ratio(icon.getIconWidth()),
+            Frame.ratio(icon.getIconHeight()),
             Image.SCALE_DEFAULT));
 
         // Window-Mode LabelSize
-         if(RatioByWindow) {
-            if(!frame.isUndecorated()) { 
-                icon = new ImageIcon(icon.getImage().getScaledInstance(
-                Frame.ratio(icon.getIconWidth()), 
-                Frame.ratio(icon.getIconHeight()), 
-                Image.SCALE_DEFAULT));
+         
+            if(!frame.isUndecorated() && RatioByWindow) { 
+                    icon = new ImageIcon(icon.getImage().getScaledInstance(
+                    Frame.ratio(frame.getWidth()), 
+                    Frame.ratio(frame.getHeight()) - 42, 
+                    Image.SCALE_DEFAULT));
+                if(ID == 5) {
+                    System.out.println(frame.getWidth() + " " + frame.getHeight());
+                    System.out.println(Frame.ratio(icon.getIconWidth()));
+                    System.out.println(Frame.ratio(icon.getIconHeight()));
+                }
             }
-         }
+        
         IconLabel[ID].setSize(icon.getIconWidth(), icon.getIconHeight());
         IconLabel[ID].setIcon(icon);
         if (LabelInfos) {

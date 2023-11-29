@@ -11,7 +11,8 @@ public class EventHandler implements KeyListener {
 
     static JFrame frame = Frame.frame;
     Game game = new Game();
-
+    Menus menus = new Menus();
+    
     public static void main(String[] args) {
         Frame.FrameUI();
     }
@@ -97,7 +98,6 @@ public class EventHandler implements KeyListener {
                     game.refreshAll();
                 } else {
                     frame.getContentPane().removeAll();
-                    Menus menus = new Menus();
                     menus.Buttons();
                 }
                 frame.setSize(e.getComponent().getSize());

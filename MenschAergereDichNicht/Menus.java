@@ -29,7 +29,7 @@ public class Menus {
 
     void startMenu() {
         img = new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\Mainmenu.png");
-        game.create(5, new ImageIcon(img.getImage().getScaledInstance(img.getIconWidth() * frame.getWidth() / 1920, img.getIconHeight() - 39 * frame.getHeight() / 1080, Image.SCALE_SMOOTH)), "0", "0", true);
+        game.create(5, img, "0", "0", true);
         
         }
 
@@ -139,9 +139,9 @@ public class Menus {
 
     }
     void previewPicture() {
-        ImageIcon img5 = new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\Preview.png");
+        ImageIcon PreviewPicture = new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\Preview.png");
         Game game = new Game();
-        game.create(4, img5, "Middle", "Preview", false);
+        game.create(4, PreviewPicture, "Middle", "Preview", false);
 
     }
 }

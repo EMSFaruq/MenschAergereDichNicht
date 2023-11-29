@@ -60,7 +60,7 @@ class Frame {
     }
     
     static int ratio(int size) {
-        return size * frame.getWidth() / 1920;
+        return 1920 * size / 1920;
     }
     
     static int getDefaultScreen() {
@@ -80,7 +80,6 @@ class Frame {
         }
         return -1;
     }
-
 }
 
 

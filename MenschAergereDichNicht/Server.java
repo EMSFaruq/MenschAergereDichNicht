@@ -52,9 +52,9 @@ public class Server {
         } catch (Exception e) {
             frame.getContentPane().removeAll();
             frame.repaint();
-            game.create(9, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\NoServersMenu.png"), "Left", "Top", true);            
+            game.createText(9, "No Servers Menu", "Left", "Top");            
         }
-        game.create(1, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\BackButton.png"), "Middle", "Bottom", false);
+        game.createText(1, "Back", "Middle", "Bottom");
         game.create(3, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\Multiplayermenu.png"), "Left", "Top", true);
     }
 
