@@ -24,8 +24,8 @@ public class Game {
     boolean LabelInfos = false;
 
     public static void main(String[] args) {
+        Frame.output = 1;
         Frame.FrameUI();
-
     }
 
     public void createGame() {
@@ -44,19 +44,18 @@ public class Game {
             System.out.println("Team: " + i);
             players.SortTeam(i);
         }
-
     }
-    
+
     static int getObject(JLabel[] Button, JLabel Player) {
         for (int i = 1; i < Button.length; i++) {
-            if(Button[i] == Player) {
+            if (Button[i] == Player) {
                 return i;
             }
         }
         System.out.println("Object nicht gefunden!");
         return -1;
     }
-    
+
     public void createCube() {
         dice = new Dice();
         dice.createDice();
@@ -134,8 +133,9 @@ public class Game {
                 // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
                 // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
                 // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
-                
-                RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(Frame.ratio(40), Frame.ratio(40), Frame.ratio(35), Frame.ratio(40), cornerRadius, cornerRadius);
+
+                RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(Frame.ratio(40), Frame.ratio(40),
+                        Frame.ratio(35), Frame.ratio(40), cornerRadius, cornerRadius);
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.draw(roundedRectangle);
                 g2d.dispose();
@@ -155,9 +155,10 @@ public class Game {
         TextLabel[ID].setVerticalAlignment(JLabel.CENTER);
         TextLabel[ID].setSize(Frame.ratio(250), Frame.ratio(125));
 
-        if(LabelInfos) {
+        if (LabelInfos) {
             System.out.println("ID: " + ID + " TextSize: " + TextLabel[ID].getFont().getSize());
-            System.out.println("ID: " + ID + " LabelSize: " + TextLabel[ID].getWidth() + " " + TextLabel[ID].getHeight());
+            System.out
+                    .println("ID: " + ID + " LabelSize: " + TextLabel[ID].getWidth() + " " + TextLabel[ID].getHeight());
             System.out.println("ID: " + ID + " Location: " + TextLabel[ID].getX() + " " + TextLabel[ID].getY());
         }
         try {
@@ -165,40 +166,40 @@ public class Game {
             int LocY = Integer.parseInt(PosY);
             TextLabel[ID].setLocation(LocX, LocY);
         } catch (Exception e) {
-             StringToPos(TextLabel, ID, PosX, PosY);
+            StringToPos(TextLabel, ID, PosX, PosY);
         }
         frame.add(TextLabel[ID]);
-        }
+    }
 
-    void create(int ID, ImageIcon icon, String PosX, String PosY, boolean RatioByWindow) {
+    void create(int ID, ImageIcon icon, String PosX, String PosY) {
         refreshJFrame();
         IconLabel[ID] = new JLabel();
 
         // Fulscreen-Mode LabelSize (Auto)
         icon = new ImageIcon(icon.getImage().getScaledInstance(
-            Frame.ratio(icon.getIconWidth()),
-            Frame.ratio(icon.getIconHeight()),
-            Image.SCALE_DEFAULT));
+                Frame.ratio(icon.getIconWidth()),
+                Frame.ratio(icon.getIconHeight()),
+                Image.SCALE_DEFAULT));
 
         // Window-Mode LabelSize
-         
-            if(!frame.isUndecorated() && RatioByWindow) { 
-                    icon = new ImageIcon(icon.getImage().getScaledInstance(
-                    Frame.ratio(frame.getWidth()), 
-                    Frame.ratio(frame.getHeight()) - 42, 
+
+        if (!frame.isUndecorated()) {
+            icon = new ImageIcon(icon.getImage().getScaledInstance(
+                    Frame.ratio(icon.getIconWidth()),
+                    Frame.ratio(icon.getIconHeight()) - 42,
                     Image.SCALE_DEFAULT));
-                if(ID == 5) {
-                    System.out.println(frame.getWidth() + " " + frame.getHeight());
-                    System.out.println(Frame.ratio(icon.getIconWidth()));
-                    System.out.println(Frame.ratio(icon.getIconHeight()));
-                }
+            if (ID == 5) {
+                System.out.println(icon.getIconWidth());
+                System.out.println(icon.getIconHeight());
             }
-        
+        }
+
         IconLabel[ID].setSize(icon.getIconWidth(), icon.getIconHeight());
         IconLabel[ID].setIcon(icon);
         if (LabelInfos) {
             System.out.println("ID: " + ID + " IconSize: " + icon.getIconWidth() + " " + icon.getIconHeight());
-            System.out.println("ID: " + ID + " LabelSize: " + IconLabel[ID].getWidth() + " " + IconLabel[ID].getHeight());
+            System.out
+                    .println("ID: " + ID + " LabelSize: " + IconLabel[ID].getWidth() + " " + IconLabel[ID].getHeight());
             System.out.println("ID: " + ID + " Location: " + IconLabel[ID].getX() + " " + IconLabel[ID].getY());
         }
 
@@ -243,19 +244,19 @@ public class Game {
     }
 
     void StringToPos(JLabel[] label, int ID, String PosX, String PosY) {
-         switch (PosX) {
+        switch (PosX) {
             case "Left":
                 label[ID].setLocation(0, (int) label[ID].getY());
                 break;
 
             case "Right":
-                label[ID].setLocation(frame.getWidth() - label[ID].getHeight(), (int) label[ID].getY());
+                label[ID].setLocation(frame.getWidth() - label[ID].getWidth(), (int) label[ID].getY());
                 break;
 
             case "Middle":
-                label[ID].setLocation(frame.getWidth() / 2 - label[ID].getHeight() / 2, (int) label[ID].getY());
+                label[ID].setLocation(frame.getWidth() / 2 - label[ID].getWidth() / 2, (int) label[ID].getY());
                 break;
-            
+
             default:
                 label[ID].setLocation(0, (int) label[ID].getY());
                 break;
@@ -267,15 +268,16 @@ public class Game {
                 break;
 
             case "Bottom":
-                label[ID].setLocation((int) label[ID].getX(), frame.getHeight() - label[ID].getHeight() - label[ID].getHeight());
+                label[ID].setLocation((int) label[ID].getX(),
+                        frame.getHeight() - label[ID].getHeight() - label[ID].getHeight());
                 break;
 
             case "Middle":
                 label[ID].setLocation((int) label[ID].getX(), frame.getHeight() / 2 - label[ID].getHeight() / 2);
                 break;
-            
+
             case "Preview":
-                label[ID].setLocation(label[ID].getX(), frame.getHeight() / 5);
+                label[ID].setLocation(label[ID].getX(), frame.getHeight() / 4);
                 break;
 
             default:

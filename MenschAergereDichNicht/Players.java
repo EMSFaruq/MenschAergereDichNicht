@@ -42,20 +42,17 @@ public class Players {
             }
             Playerlabel[i] = new JLabel();
             ImageIcon icon = new ImageIcon("MenschAergereDichNicht\\Sprites\\Characters\\Player" + IconNummer + ".png");
-            Image newImage = icon.getImage().getScaledInstance(icon.getIconWidth() * frame.getWidth() / 1920, icon.getIconHeight() * frame.getHeight() / 1080, Image.SCALE_DEFAULT);
-            icon = new ImageIcon(newImage);
-            
-            Playerlabel[i].setIcon(icon);
+            Playerlabel[i].setIcon(new ImageIcon(icon.getImage().getScaledInstance(Frame.ratio(icon.getIconWidth()),
+                    Frame.ratio(icon.getIconHeight()), Image.SCALE_SMOOTH)));
             Playerlabel[i].setSize(icon.getIconWidth(), icon.getIconHeight());
-            
-            if(LastField != null) {
-            game.Move(Felder, Playerlabel, i, LastField[i]);
+
+            if (LastField != null) {
+                game.Move(Felder, Playerlabel, i, Frame.ratio(LastField[i]));
             }
 
-            
             frame.add(Playerlabel[i]);
         }
-        
+
         setTeam();
         clickPlayer(1);
         System.out.println("Personalteam: " + PersonalTeam);
@@ -64,35 +61,36 @@ public class Players {
 
     public void clickPlayer(int schritte) {
 
-        for(int i = 1; i < Playerlabel.length; i++) {
-        Playerlabel[i].addMouseListener(new MouseAdapter() {
-        
+        for (int i = 1; i < Playerlabel.length; i++) {
+            Playerlabel[i].addMouseListener(new MouseAdapter() {
+
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     getFields();
                     int Player = getPlayer(Playerlabel, (JLabel) e.getSource());
                     getStartPoint(getTeam(Player), Felder);
                     int fieldNumber = getPlayerField(Playerlabel, Player);
-                    int differenz = getTeam(Player) * 10 - 10; 
+                    int differenz = getTeam(Player) * 10 - 10;
 
-                    if(getTeam(Player) == PersonalTeam) {
+                    if (getTeam(Player) == PersonalTeam) {
 
-                    if(fieldNumber == Felder.length - 1) {
-                        return;
-                    }
+                        if (fieldNumber == Felder.length - 1) {
+                            return;
+                        }
 
-                    if(fieldNumber + schritte >= 40) {
-                        MovementHandler(fieldNumber + schritte - differenz, Player);   
-                    }else
-                        MovementHandler(fieldNumber + 1, Player);   
+                        if (fieldNumber + schritte >= 40) {
+                            MovementHandler(fieldNumber + schritte - differenz, Player);
+                        } else
+                            MovementHandler(fieldNumber + 1, Player);
                     }
                 }
             });
-        
+
         }
     }
+
     public void MovementHandler(int Feld, int Spieler) {
-        getStartPoint(getTeam(Spieler), Felder);        
+        getStartPoint(getTeam(Spieler), Felder);
         getFields();
         Game game = new Game();
         game.Move(Felder, Playerlabel, Spieler, Feld);
@@ -102,7 +100,7 @@ public class Players {
 
         for (int i = 1; i <= 4; i++) {
             getStartPoint(Team, Felder);
-            
+
             switch (Team) {
                 case 1:
                     MovementHandler(i, i);
@@ -118,103 +116,100 @@ public class Players {
                     break;
             }
         }
-        
+
     }
 
     static void getStartPoint(int Team, int[][] Feld) {
-        
-        if(Team == 1) {
-            Feld[1] = new int[]{504 * frame.getWidth() / 1920, 938 * frame.getHeight() / 1080};
-            Feld[2] = new int[]{504 * frame.getWidth() / 1920, 850 * frame.getHeight() / 1080};
-            Feld[3] = new int[]{592 * frame.getWidth() / 1920, 850 * frame.getHeight() / 1080};
-            Feld[4] = new int[]{592 * frame.getWidth() / 1920, 938 * frame.getHeight() / 1080};
-        }else
-        if(Team == 2) {
-            Feld[1] = new int[]{504 * frame.getWidth() / 1920, 145 * frame.getHeight() / 1080};
-            Feld[2] = new int[]{504 * frame.getWidth() / 1920, 58 * frame.getHeight() / 1080};
-            Feld[3] = new int[]{592 * frame.getWidth() / 1920, 58 * frame.getHeight() / 1080};
-            Feld[4] = new int[]{592 * frame.getWidth() / 1920, 145 * frame.getHeight() / 1080};
-        }else
-        if(Team == 3) {
-            Feld[1] = new int[]{1297 * frame.getWidth() / 1920, 145 * frame.getHeight() / 1080};
-            Feld[2] = new int[]{1297 * frame.getWidth() / 1920, 58 * frame.getHeight() / 1080};
-            Feld[3] = new int[]{1386 * frame.getWidth() / 1920, 58 * frame.getHeight() / 1080};
-            Feld[4] = new int[]{1386 * frame.getWidth() / 1920, 145 * frame.getHeight() / 1080};
-        }else
-        if(Team == 4) {
-            Feld[1] = new int[]{1297 * frame.getWidth() / 1920, 938 * frame.getHeight() / 1080};
-            Feld[2] = new int[]{1297 * frame.getWidth() / 1920, 850 * frame.getHeight() / 1080};
-            Feld[3] = new int[]{1386 * frame.getWidth() / 1920, 938 * frame.getHeight() / 1080};
-            Feld[4] = new int[]{1386 * frame.getWidth() / 1920, 850 * frame.getHeight() / 1080};
+
+        if (Team == 1) {
+            Feld[1] = new int[] { Frame.ratio(504), Frame.ratio(938) };
+            Feld[2] = new int[] { Frame.ratio(504), Frame.ratio(850) };
+            Feld[3] = new int[] { Frame.ratio(592), Frame.ratio(850) };
+            Feld[4] = new int[] { Frame.ratio(592), Frame.ratio(938) };
+        } else if (Team == 2) {
+            Feld[1] = new int[] { Frame.ratio(504), Frame.ratio(145) };
+            Feld[2] = new int[] { Frame.ratio(504), Frame.ratio(58) };
+            Feld[3] = new int[] { Frame.ratio(592), Frame.ratio(58) };
+            Feld[4] = new int[] { Frame.ratio(592), Frame.ratio(145) };
+        } else if (Team == 3) {
+            Feld[1] = new int[] { Frame.ratio(1297), Frame.ratio(145) };
+            Feld[2] = new int[] { Frame.ratio(1297), Frame.ratio(58) };
+            Feld[3] = new int[] { Frame.ratio(1386), Frame.ratio(58) };
+            Feld[4] = new int[] { Frame.ratio(1386), Frame.ratio(145) };
+        } else if (Team == 4) {
+            Feld[1] = new int[] { Frame.ratio(1297), Frame.ratio(938) };
+            Feld[2] = new int[] { Frame.ratio(1297), Frame.ratio(850) };
+            Feld[3] = new int[] { Frame.ratio(1386), Frame.ratio(938) };
+            Feld[4] = new int[] { Frame.ratio(1386), Frame.ratio(850) };
         }
-        
     }
 
     void getFields() {
         refreshJFrame();
-        
-        Felder[5] = new int[] {857 * frame.getWidth() / 1920, 938 * frame.getHeight() / 1080};
-        Felder[6] = new int[] {857 * frame.getWidth() / 1920, 850 * frame.getHeight() / 1080};
-        Felder[7] = new int[] {857 * frame.getWidth() / 1920, 760 * frame.getHeight() / 1080};
-        Felder[8] = new int[] {857 * frame.getWidth() / 1920, 675 * frame.getHeight() / 1080};
-        Felder[9] = new int[] {857 * frame.getWidth() / 1920, 585 * frame.getHeight() / 1080}; 
-        Felder[10] = new int[] {768 * frame.getWidth() / 1920, 585 * frame.getHeight() / 1080};
-        Felder[11] = new int[] {682 * frame.getWidth() / 1920, 585 * frame.getHeight() / 1080};
-        Felder[12] = new int[] {592 * frame.getWidth() / 1920, 585 * frame.getHeight() / 1080};
-        Felder[13] = new int[] {505 * frame.getWidth() / 1920, 585 * frame.getHeight() / 1080};
-        Felder[14] = new int[] {505 * frame.getWidth() / 1920, 498 * frame.getHeight() / 1080};
-        Felder[15] = new int[] {505 * frame.getWidth() / 1920, 410 * frame.getHeight() / 1080};
-        Felder[16] = new int[] {592 * frame.getWidth() / 1920, 410 * frame.getHeight() / 1080};
-        Felder[17] = new int[] {682 * frame.getWidth() / 1920, 410 * frame.getHeight() / 1080};
-        Felder[18] = new int[] {769 * frame.getWidth() / 1920, 410 * frame.getHeight() / 1080};
-        Felder[19] = new int[] {857 * frame.getWidth() / 1920, 410 * frame.getHeight() / 1080};
-        Felder[20] = new int[] {857 * frame.getWidth() / 1920, 320 * frame.getHeight() / 1080};
-        Felder[21] = new int[] {857 * frame.getWidth() / 1920, 235 * frame.getHeight() / 1080};
-        Felder[22] = new int[] {857 * frame.getWidth() / 1920, 145 * frame.getHeight() / 1080};
-        Felder[23] = new int[] {857 * frame.getWidth() / 1920, 58 * frame.getHeight() / 1080};
-        Felder[24] = new int[] {945 * frame.getWidth() / 1920, 58 * frame.getHeight() / 1080};
-        Felder[25] = new int[] {1033 * frame.getWidth() / 1920, 58 * frame.getHeight() / 1080};
-        Felder[26] = new int[] {1033 * frame.getWidth() / 1920, 145 * frame.getHeight() / 1080};
-        Felder[27] = new int[] {1033 * frame.getWidth() / 1920, 234 * frame.getHeight() / 1080};
-        Felder[28] = new int[] {1033 * frame.getWidth() / 1920, 320 * frame.getHeight() / 1080};
-        Felder[29] = new int[] {1033 * frame.getWidth() / 1920, 409 * frame.getHeight() / 1080};
-        Felder[30] = new int[] {1122 * frame.getWidth() / 1920, 409 * frame.getHeight() / 1080};
-        Felder[31] = new int[] {1210 * frame.getWidth() / 1920, 409 * frame.getHeight() / 1080};
-        Felder[32] = new int[] {1298 * frame.getWidth() / 1920, 409 * frame.getHeight() / 1080};
-        Felder[33] = new int[] {1386 * frame.getWidth() / 1920, 409 * frame.getHeight() / 1080};
-        Felder[34] = new int[] {1386 * frame.getWidth() / 1920, 497 * frame.getHeight() / 1080};
-        Felder[35] = new int[] {1386 * frame.getWidth() / 1920, 584 * frame.getHeight() / 1080};
-        Felder[36] = new int[] {1299 * frame.getWidth() / 1920, 584 * frame.getHeight() / 1080};
-        Felder[37] = new int[] {1209 * frame.getWidth() / 1920, 584 * frame.getHeight() / 1080};
-        Felder[38] = new int[] {1122 * frame.getWidth() / 1920, 584 * frame.getHeight() / 1080};
-        Felder[39] = new int[] {1034 * frame.getWidth() / 1920, 584 * frame.getHeight() / 1080};
-        Felder[40] = new int[] {1034 * frame.getWidth() / 1920, 673 * frame.getHeight() / 1080};
-        Felder[41] = new int[] {1034 * frame.getWidth() / 1920, 761 * frame.getHeight() / 1080};
-        Felder[42] = new int[] {1034 * frame.getWidth() / 1920, 850 * frame.getHeight() / 1080};
-        Felder[43] = new int[] {1034 * frame.getWidth() / 1920, 938 * frame.getHeight() / 1080};
-        Felder[44] = new int[] {945 * frame.getWidth() / 1920, 938 * frame.getHeight() / 1080};
-        Felder[45] = new int[] {945 * frame.getWidth() / 1920, 850 * frame.getHeight() / 1080};
-        Felder[46] = new int[] {945 * frame.getWidth() / 1920, 760 * frame.getHeight() / 1080};
-        Felder[47] = new int[] {945 * frame.getWidth() / 1920, 673 * frame.getHeight() / 1080};
-        Felder[48] = new int[] {945 * frame.getWidth() / 1920, 585 * frame.getHeight() / 1080};
-        
+
+        Felder[5] = new int[] { Frame.ratio(857), Frame.ratio(938) };
+        Felder[6] = new int[] { Frame.ratio(857), Frame.ratio(850) };
+        Felder[7] = new int[] { Frame.ratio(857), Frame.ratio(760) };
+        Felder[8] = new int[] { Frame.ratio(857), Frame.ratio(675) };
+        Felder[9] = new int[] { Frame.ratio(857), Frame.ratio(585) };
+        Felder[10] = new int[] { Frame.ratio(768), Frame.ratio(585) };
+        Felder[11] = new int[] { Frame.ratio(682), Frame.ratio(585) };
+        Felder[12] = new int[] { Frame.ratio(592), Frame.ratio(585) };
+        Felder[13] = new int[] { Frame.ratio(505), Frame.ratio(585) };
+        Felder[14] = new int[] { Frame.ratio(505), Frame.ratio(498) };
+        Felder[15] = new int[] { Frame.ratio(505), Frame.ratio(410) };
+        Felder[16] = new int[] { Frame.ratio(592), Frame.ratio(410) };
+        Felder[17] = new int[] { Frame.ratio(682), Frame.ratio(410) };
+        Felder[18] = new int[] { Frame.ratio(769), Frame.ratio(410) };
+        Felder[19] = new int[] { Frame.ratio(857), Frame.ratio(410) };
+        Felder[20] = new int[] { Frame.ratio(857), Frame.ratio(320) };
+        Felder[21] = new int[] { Frame.ratio(857), Frame.ratio(235) };
+        Felder[22] = new int[] { Frame.ratio(857), Frame.ratio(145) };
+        Felder[23] = new int[] { Frame.ratio(857), Frame.ratio(58) };
+        Felder[24] = new int[] { Frame.ratio(945), Frame.ratio(58) };
+        Felder[25] = new int[] { Frame.ratio(1033), Frame.ratio(58) };
+        Felder[26] = new int[] { Frame.ratio(1033), Frame.ratio(145) };
+        Felder[27] = new int[] { Frame.ratio(1033), Frame.ratio(234) };
+        Felder[28] = new int[] { Frame.ratio(1033), Frame.ratio(320) };
+        Felder[29] = new int[] { Frame.ratio(1033), Frame.ratio(409) };
+        Felder[30] = new int[] { Frame.ratio(1122), Frame.ratio(409) };
+        Felder[31] = new int[] { Frame.ratio(1210), Frame.ratio(409) };
+        Felder[32] = new int[] { Frame.ratio(1298), Frame.ratio(409) };
+        Felder[33] = new int[] { Frame.ratio(1386), Frame.ratio(409) };
+        Felder[34] = new int[] { Frame.ratio(1386), Frame.ratio(497) };
+        Felder[35] = new int[] { Frame.ratio(1386), Frame.ratio(584) };
+        Felder[36] = new int[] { Frame.ratio(1299), Frame.ratio(584) };
+        Felder[37] = new int[] { Frame.ratio(1209), Frame.ratio(584) };
+        Felder[38] = new int[] { Frame.ratio(1122), Frame.ratio(584) };
+        Felder[39] = new int[] { Frame.ratio(1034), Frame.ratio(584) };
+        Felder[40] = new int[] { Frame.ratio(1034), Frame.ratio(673) };
+        Felder[41] = new int[] { Frame.ratio(1034), Frame.ratio(761) };
+        Felder[42] = new int[] { Frame.ratio(1034), Frame.ratio(850) };
+        Felder[43] = new int[] { Frame.ratio(1034), Frame.ratio(938) };
+        Felder[44] = new int[] { Frame.ratio(945), Frame.ratio(938) };
+        Felder[45] = new int[] { Frame.ratio(945), Frame.ratio(850) };
+        Felder[46] = new int[] { Frame.ratio(945), Frame.ratio(760) };
+        Felder[47] = new int[] { Frame.ratio(945), Frame.ratio(673) };
+        Felder[48] = new int[] { Frame.ratio(945), Frame.ratio(585) };
+
     }
 
     ImageIcon getIcon(int IconNummer) {
         ImageIcon icon = new ImageIcon("MenschAergereDichNicht\\Sprites\\Characters\\Player" + IconNummer + ".png");
-        return icon; 
+        return icon;
     }
 
     void playerNames() {
         for (int i = 1; i < Playerlabel.length; i++) {
             Playername[i] = new JLabel();
             Playername[i].setText(Teams[i]);
-            
-                Playername[i].setLocation(Playerlabel[i].getX(), Playerlabel[i].getY() - Playerlabel[1].getHeight() / 2);
-            }
 
+            Playername[i].setLocation(Playerlabel[i].getX(),
+                    Frame.ratio(Playerlabel[i].getY() - Playerlabel[1].getHeight() / 2));
         }
-    
+
+    }
+
     static int getPlayerField(JLabel[] Playerlabel, int PlayerNum) {
 
         for (int i = 0; i < Felder.length; i++) {
@@ -228,20 +223,20 @@ public class Players {
 
     static int getPlayer(JLabel[] Button, JLabel Player) {
         for (int i = 1; i < Button.length; i++) {
-            if(Button[i] == Player) {
+            if (Button[i] == Player) {
                 return i;
             }
         }
         System.out.println("Spieler nicht gefunden!");
         return -1;
     }
-    
+
     void setTeam() {
         for (int i = 1; i < Teams.length; i++) {
 
             String Nickname = "Player(" + i + ")";
 
-            if(Teams[i] == null) {
+            if (Teams[i] == null) {
                 Teams[i] = Nickname;
                 PersonalTeam = i;
             }
@@ -251,14 +246,11 @@ public class Players {
     int getTeam(int Spieler) {
         if (Spieler <= 4) {
             return 1;
-        }else
-        if (Spieler <= 8) {
+        } else if (Spieler <= 8) {
             return 2;
-        }else
-        if (Spieler <= 12) {
+        } else if (Spieler <= 12) {
             return 3;
-        }else
-        if (Spieler <= 16) {
+        } else if (Spieler <= 16) {
             return 4;
         }
         System.out.println("Team nicht gefunden!");
@@ -271,13 +263,13 @@ public class Players {
             LastField[i] = getPlayerField(Playerlabel, i);
 
         }
-            frame.getContentPane().removeAll();
-        
+        frame.getContentPane().removeAll();
+
         for (int i = 1; i < Playerlabel.length; i++) {
             Playerlabel[i].setIcon((getIcon(i)));
             game.Move(Felder, Playerlabel, i, LastField[i]);
         }
-        
+
         Player();
     }
 

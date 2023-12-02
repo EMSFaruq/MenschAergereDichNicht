@@ -103,9 +103,38 @@ public class EventHandler implements KeyListener {
                 frame.setSize(e.getComponent().getSize());
             }
 
-            @Override
-            public void componentMoved(ComponentEvent e) {
+            @Override 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+             
+            public void componentMoved(ComponentEvent e) {
+                
             }
 
             @Override

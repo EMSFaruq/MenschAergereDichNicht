@@ -55,7 +55,7 @@ public class Server {
             game.createText(9, "No Servers Menu", "Left", "Top");            
         }
         game.createText(1, "Back", "Middle", "Bottom");
-        game.create(3, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\Multiplayermenu.png"), "Left", "Top", true);
+        game.create(3, new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\Multiplayermenu.png"), "Left", "Top");
     }
 
     static void createServer() {
