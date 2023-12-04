@@ -72,17 +72,15 @@ public class Game {
         } catch (Exception e) {
             bg = new Board();
             bg.createBackground();
-            e.printStackTrace();
         }
     }
 
     public void refreshPlayers() {
         try {
+            players.save();
             players.refresh();
         } catch (Exception e) {
-            players = new Players();
-            players.Player();
-            e.printStackTrace();
+            createPlayers();
         }
     }
 
@@ -90,9 +88,7 @@ public class Game {
         try {
             dice.refresh();
         } catch (Exception e) {
-            dice = new Dice();
-            dice.createDice();
-            e.printStackTrace();
+            createCube();
         }
     }
 
@@ -120,22 +116,11 @@ public class Game {
                 Graphics2D g2d = (Graphics2D) g.create();
 
                 // PADDDIIINNNNG MORRGEN MACHENNNNNN
-                // PADDDIIINNNNG MORRGEN MACHENNNNNN
-                // PADDDIIINNNNG MORRGEN MACHENNNNNN
-                // PADDDIIINNNNG MORRGEN MACHENNNNNN
-                // PADDDIIINNNNG MORRGEN MACHENNNNNN
-                // PADDDIIINNNNG MORRGEN MACHENNNNNN
-                // PADDDIIINNNNG MORRGEN MACHENNNNNN
-                // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
-                // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
-                // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
-                // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
-                // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
-                // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
                 // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
 
-                RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(Frame.ratio(40), Frame.ratio(40),
-                        Frame.ratio(35), Frame.ratio(40), cornerRadius, cornerRadius);
+                RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(Frame.ratio(40, false),
+                        Frame.ratio(40, false),
+                        Frame.ratio(35, false), Frame.ratio(40, false), cornerRadius, cornerRadius);
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.draw(roundedRectangle);
                 g2d.dispose();
@@ -147,13 +132,13 @@ public class Game {
         refreshJFrame();
 
         // Create first
-        Font CustomFont = new Font("Poor Richard", Font.PLAIN, Frame.ratio(100));
+        Font CustomFont = new Font("Poor Richard", Font.PLAIN, Frame.ratio(100, false));
         // TextLabel[ID] = createRoundedBorderLabel(Text, 16, 50);
         TextLabel[ID] = new JLabel();
         TextLabel[ID].setFont(CustomFont);
         TextLabel[ID].setHorizontalAlignment(JLabel.CENTER);
         TextLabel[ID].setVerticalAlignment(JLabel.CENTER);
-        TextLabel[ID].setSize(Frame.ratio(250), Frame.ratio(125));
+        TextLabel[ID].setSize(Frame.ratio(250, false), Frame.ratio(125, true));
 
         if (LabelInfos) {
             System.out.println("ID: " + ID + " TextSize: " + TextLabel[ID].getFont().getSize());
@@ -175,23 +160,14 @@ public class Game {
         refreshJFrame();
         IconLabel[ID] = new JLabel();
 
-        // Fulscreen-Mode LabelSize (Auto)
+        // Auto Ratio if Undecorated or not :D
         icon = new ImageIcon(icon.getImage().getScaledInstance(
-                Frame.ratio(icon.getIconWidth()),
-                Frame.ratio(icon.getIconHeight()),
+                Frame.ratio(icon.getIconWidth(), false),
+                Frame.ratio(icon.getIconHeight(), true),
                 Image.SCALE_DEFAULT));
-
-        // Window-Mode LabelSize
-
-        if (!frame.isUndecorated()) {
-            icon = new ImageIcon(icon.getImage().getScaledInstance(
-                    Frame.ratio(icon.getIconWidth()),
-                    Frame.ratio(icon.getIconHeight()) - 42,
-                    Image.SCALE_DEFAULT));
-            if (ID == 5) {
-                System.out.println(icon.getIconWidth());
-                System.out.println(icon.getIconHeight());
-            }
+        if (ID == 5) {
+            System.out.println(icon.getIconWidth());
+            System.out.println(icon.getIconHeight());
         }
 
         IconLabel[ID].setSize(icon.getIconWidth(), icon.getIconHeight());

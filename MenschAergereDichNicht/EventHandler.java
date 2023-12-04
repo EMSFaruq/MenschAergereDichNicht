@@ -1,10 +1,13 @@
 package MenschAergereDichNicht;
 
+import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 
 public class EventHandler implements KeyListener {
@@ -12,14 +15,13 @@ public class EventHandler implements KeyListener {
     static JFrame frame = Frame.frame;
     Game game = new Game();
     Menus menus = new Menus();
-    
+
     public static void main(String[] args) {
         Frame.FrameUI();
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
@@ -29,7 +31,7 @@ public class EventHandler implements KeyListener {
             refreshJFrame();
             System.out.println("Frame Position: " + frame.getX() + " " + frame.getY());
             System.out.println("Resolution: " + frame.getWidth() + " " + frame.getHeight());
-            System.out.println("Fullscreen: " +  frame.isUndecorated());
+            System.out.println("Fullscreen: " + frame.isUndecorated());
         }
 
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -45,7 +47,6 @@ public class EventHandler implements KeyListener {
                 menus.addEscMenu("Open");
                 menus.Menu = "Close";
             }
-
         }
         if (e.getKeyCode() == KeyEvent.VK_F5) {
             frame.repaint();
@@ -57,7 +58,7 @@ public class EventHandler implements KeyListener {
 
         if (e.getKeyCode() == KeyEvent.VK_F11) {
             refreshJFrame();
-      
+
             if (frame.isUndecorated()) {
                 frame.dispose();
                 frame.setUndecorated(false);
@@ -72,6 +73,16 @@ public class EventHandler implements KeyListener {
                     frame.setVisible(true);
                 }
             }
+        }
+        if (e.getKeyCode() == KeyEvent.VK_F4) {
+
+            frame.addMouseListener(new MouseAdapter() {
+
+                @Override
+                public void mouseMoved(MouseEvent e) {
+                    System.out.println(e.getX() + " " + e.getY());
+                }
+            });
         }
     }
 
@@ -90,7 +101,7 @@ public class EventHandler implements KeyListener {
 
     void addResizeListener() {
 
-        frame.addComponentListener(new ComponentListener() {
+        frame.addComponentListener(new ComponentAdapter() {
 
             @Override
             public void componentResized(ComponentEvent e) {
@@ -102,51 +113,6 @@ public class EventHandler implements KeyListener {
                 }
                 frame.setSize(e.getComponent().getSize());
             }
-
-            @Override 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-             
-            public void componentMoved(ComponentEvent e) {
-                
-            }
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-
-            }
-
-            @Override
-            public void componentHidden(ComponentEvent e) {
-
-            }
-
         });
     }
 

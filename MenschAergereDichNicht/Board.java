@@ -10,7 +10,7 @@ public class Board {
     public static void main(String[] args) {
         Frame.FrameUI();
     }
-     
+
     public void createBackground() {
         ImageIcon BG = new ImageIcon("MenschAergereDichNicht\\Sprites\\Board\\Board.png");
         Game game = new Game();
@@ -21,4 +21,3 @@ public class Board {
         createBackground();
     }
 }
- 

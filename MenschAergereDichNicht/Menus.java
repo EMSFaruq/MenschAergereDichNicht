@@ -50,8 +50,10 @@ public class Menus {
                 img = new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\ExitButton.png");
             }
 
-            img = new ImageIcon(img.getImage().getScaledInstance((img.getIconWidth() * frame.getWidth()) / 1920,
-                    (img.getIconHeight() * frame.getHeight()) / 1080, Image.SCALE_DEFAULT));
+            img = new ImageIcon(img.getImage().getScaledInstance(
+                    Frame.ratio(img.getIconWidth(), false),
+                    Frame.ratio(img.getIconHeight(), false),
+                    Image.SCALE_DEFAULT));
 
             if (i == 1 || i == 3) {
                 PosX = MiddleX - img.getIconWidth() - Abstand;

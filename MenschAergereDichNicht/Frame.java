@@ -1,6 +1,5 @@
 package MenschAergereDichNicht;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
@@ -17,11 +16,12 @@ class Frame {
     static int output = 0;
     static JFrame frame = new JFrame("Mensch ärgere Dich nicht!");
     static boolean decorated = true;
-    
+
     public static void main(String[] args) {
         FrameUI();
-        
+
     }
+
     static void FrameUI() {
         ImageIcon img = new ImageIcon("MenschAergereDichNicht\\Sprites\\Board\\Icon.png");
         frame.setLocationRelativeTo(null);
@@ -39,12 +39,12 @@ class Frame {
         frame.setMinimumSize(new Dimension(800, 600));
         frame.setIconImage(img.getImage());
 
-        //Frame Behavior
+        // Frame Behavior
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
         Color color = new Color(42, 42, 42);
         frame.getContentPane().setBackground(color);
-        
+
         EventHandler handler = new EventHandler();
         handler.addKeyListener();
         handler.addResizeListener();
@@ -58,19 +58,23 @@ class Frame {
 
         frame.setVisible(true);
     }
-    
-    static int ratio(int size) {
-        return 1920 * size / 1920;
+
+    static int ratio(int size, boolean Height) {
+        if (Height) {
+            return 1920 * (size - 42) / 1920;
+        } else
+            return (1920 * size) / 1920;
     }
-    
+
     static int getDefaultScreen() {
         for (int i = 0; i < gd.length; i++) {
-            if(gd[i] == ge.getDefaultScreenDevice()) {
+            if (gd[i] == ge.getDefaultScreenDevice()) {
                 return i;
             }
         }
         return -1;
     }
+
     static int currentScreen() {
         GraphicsDevice currentDevice = frame.getGraphicsConfiguration().getDevice();
         for (int i = 0; i < gd.length; i++) {
@@ -81,6 +85,3 @@ class Frame {
         return -1;
     }
 }
-
-
-       

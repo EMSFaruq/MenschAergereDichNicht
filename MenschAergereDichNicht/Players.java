@@ -42,12 +42,14 @@ public class Players {
             }
             Playerlabel[i] = new JLabel();
             ImageIcon icon = new ImageIcon("MenschAergereDichNicht\\Sprites\\Characters\\Player" + IconNummer + ".png");
-            Playerlabel[i].setIcon(new ImageIcon(icon.getImage().getScaledInstance(Frame.ratio(icon.getIconWidth()),
-                    Frame.ratio(icon.getIconHeight()), Image.SCALE_SMOOTH)));
+
+            Playerlabel[i]
+                    .setIcon(new ImageIcon(icon.getImage().getScaledInstance(Frame.ratio(icon.getIconWidth(), false),
+                            Frame.ratio(icon.getIconHeight(), false), Image.SCALE_SMOOTH)));
             Playerlabel[i].setSize(icon.getIconWidth(), icon.getIconHeight());
 
             if (LastField != null) {
-                game.Move(Felder, Playerlabel, i, Frame.ratio(LastField[i]));
+                game.Move(Felder, Playerlabel, i, LastField[i]);
             }
 
             frame.add(Playerlabel[i]);
@@ -122,75 +124,75 @@ public class Players {
     static void getStartPoint(int Team, int[][] Feld) {
 
         if (Team == 1) {
-            Feld[1] = new int[] { Frame.ratio(504), Frame.ratio(938) };
-            Feld[2] = new int[] { Frame.ratio(504), Frame.ratio(850) };
-            Feld[3] = new int[] { Frame.ratio(592), Frame.ratio(850) };
-            Feld[4] = new int[] { Frame.ratio(592), Frame.ratio(938) };
+            Feld[1] = new int[] { Frame.ratio(504, false), Frame.ratio(938, true) };
+            Feld[2] = new int[] { Frame.ratio(504, false), Frame.ratio(850, true) };
+            Feld[3] = new int[] { Frame.ratio(592, false), Frame.ratio(850, true) };
+            Feld[4] = new int[] { Frame.ratio(592, false), Frame.ratio(938, true) };
         } else if (Team == 2) {
-            Feld[1] = new int[] { Frame.ratio(504), Frame.ratio(145) };
-            Feld[2] = new int[] { Frame.ratio(504), Frame.ratio(58) };
-            Feld[3] = new int[] { Frame.ratio(592), Frame.ratio(58) };
-            Feld[4] = new int[] { Frame.ratio(592), Frame.ratio(145) };
+            Feld[1] = new int[] { Frame.ratio(504, false), Frame.ratio(145, true) };
+            Feld[2] = new int[] { Frame.ratio(504, false), Frame.ratio(58, true) };
+            Feld[3] = new int[] { Frame.ratio(592, false), Frame.ratio(58, true) };
+            Feld[4] = new int[] { Frame.ratio(592, false), Frame.ratio(145, true) };
         } else if (Team == 3) {
-            Feld[1] = new int[] { Frame.ratio(1297), Frame.ratio(145) };
-            Feld[2] = new int[] { Frame.ratio(1297), Frame.ratio(58) };
-            Feld[3] = new int[] { Frame.ratio(1386), Frame.ratio(58) };
-            Feld[4] = new int[] { Frame.ratio(1386), Frame.ratio(145) };
+            Feld[1] = new int[] { Frame.ratio(1297, false), Frame.ratio(145, true) };
+            Feld[2] = new int[] { Frame.ratio(1297, false), Frame.ratio(58, true) };
+            Feld[3] = new int[] { Frame.ratio(1386, false), Frame.ratio(58, true) };
+            Feld[4] = new int[] { Frame.ratio(1386, false), Frame.ratio(145, true) };
         } else if (Team == 4) {
-            Feld[1] = new int[] { Frame.ratio(1297), Frame.ratio(938) };
-            Feld[2] = new int[] { Frame.ratio(1297), Frame.ratio(850) };
-            Feld[3] = new int[] { Frame.ratio(1386), Frame.ratio(938) };
-            Feld[4] = new int[] { Frame.ratio(1386), Frame.ratio(850) };
+            Feld[1] = new int[] { Frame.ratio(1297, false), Frame.ratio(938, true) };
+            Feld[2] = new int[] { Frame.ratio(1297, false), Frame.ratio(850, true) };
+            Feld[3] = new int[] { Frame.ratio(1386, false), Frame.ratio(938, true) };
+            Feld[4] = new int[] { Frame.ratio(1386, false), Frame.ratio(850, true) };
         }
     }
 
     void getFields() {
         refreshJFrame();
 
-        Felder[5] = new int[] { Frame.ratio(857), Frame.ratio(938) };
-        Felder[6] = new int[] { Frame.ratio(857), Frame.ratio(850) };
-        Felder[7] = new int[] { Frame.ratio(857), Frame.ratio(760) };
-        Felder[8] = new int[] { Frame.ratio(857), Frame.ratio(675) };
-        Felder[9] = new int[] { Frame.ratio(857), Frame.ratio(585) };
-        Felder[10] = new int[] { Frame.ratio(768), Frame.ratio(585) };
-        Felder[11] = new int[] { Frame.ratio(682), Frame.ratio(585) };
-        Felder[12] = new int[] { Frame.ratio(592), Frame.ratio(585) };
-        Felder[13] = new int[] { Frame.ratio(505), Frame.ratio(585) };
-        Felder[14] = new int[] { Frame.ratio(505), Frame.ratio(498) };
-        Felder[15] = new int[] { Frame.ratio(505), Frame.ratio(410) };
-        Felder[16] = new int[] { Frame.ratio(592), Frame.ratio(410) };
-        Felder[17] = new int[] { Frame.ratio(682), Frame.ratio(410) };
-        Felder[18] = new int[] { Frame.ratio(769), Frame.ratio(410) };
-        Felder[19] = new int[] { Frame.ratio(857), Frame.ratio(410) };
-        Felder[20] = new int[] { Frame.ratio(857), Frame.ratio(320) };
-        Felder[21] = new int[] { Frame.ratio(857), Frame.ratio(235) };
-        Felder[22] = new int[] { Frame.ratio(857), Frame.ratio(145) };
-        Felder[23] = new int[] { Frame.ratio(857), Frame.ratio(58) };
-        Felder[24] = new int[] { Frame.ratio(945), Frame.ratio(58) };
-        Felder[25] = new int[] { Frame.ratio(1033), Frame.ratio(58) };
-        Felder[26] = new int[] { Frame.ratio(1033), Frame.ratio(145) };
-        Felder[27] = new int[] { Frame.ratio(1033), Frame.ratio(234) };
-        Felder[28] = new int[] { Frame.ratio(1033), Frame.ratio(320) };
-        Felder[29] = new int[] { Frame.ratio(1033), Frame.ratio(409) };
-        Felder[30] = new int[] { Frame.ratio(1122), Frame.ratio(409) };
-        Felder[31] = new int[] { Frame.ratio(1210), Frame.ratio(409) };
-        Felder[32] = new int[] { Frame.ratio(1298), Frame.ratio(409) };
-        Felder[33] = new int[] { Frame.ratio(1386), Frame.ratio(409) };
-        Felder[34] = new int[] { Frame.ratio(1386), Frame.ratio(497) };
-        Felder[35] = new int[] { Frame.ratio(1386), Frame.ratio(584) };
-        Felder[36] = new int[] { Frame.ratio(1299), Frame.ratio(584) };
-        Felder[37] = new int[] { Frame.ratio(1209), Frame.ratio(584) };
-        Felder[38] = new int[] { Frame.ratio(1122), Frame.ratio(584) };
-        Felder[39] = new int[] { Frame.ratio(1034), Frame.ratio(584) };
-        Felder[40] = new int[] { Frame.ratio(1034), Frame.ratio(673) };
-        Felder[41] = new int[] { Frame.ratio(1034), Frame.ratio(761) };
-        Felder[42] = new int[] { Frame.ratio(1034), Frame.ratio(850) };
-        Felder[43] = new int[] { Frame.ratio(1034), Frame.ratio(938) };
-        Felder[44] = new int[] { Frame.ratio(945), Frame.ratio(938) };
-        Felder[45] = new int[] { Frame.ratio(945), Frame.ratio(850) };
-        Felder[46] = new int[] { Frame.ratio(945), Frame.ratio(760) };
-        Felder[47] = new int[] { Frame.ratio(945), Frame.ratio(673) };
-        Felder[48] = new int[] { Frame.ratio(945), Frame.ratio(585) };
+        Felder[5] = new int[] { Frame.ratio(857, false), Frame.ratio(938, true) };
+        Felder[6] = new int[] { Frame.ratio(857, false), Frame.ratio(850, true) };
+        Felder[7] = new int[] { Frame.ratio(857, false), Frame.ratio(760, true) };
+        Felder[8] = new int[] { Frame.ratio(857, false), Frame.ratio(675, true) };
+        Felder[9] = new int[] { Frame.ratio(857, false), Frame.ratio(585, true) };
+        Felder[10] = new int[] { Frame.ratio(768, false), Frame.ratio(585, true) };
+        Felder[11] = new int[] { Frame.ratio(682, false), Frame.ratio(585, true) };
+        Felder[12] = new int[] { Frame.ratio(592, false), Frame.ratio(585, true) };
+        Felder[13] = new int[] { Frame.ratio(505, false), Frame.ratio(585, true) };
+        Felder[14] = new int[] { Frame.ratio(505, false), Frame.ratio(498, true) };
+        Felder[15] = new int[] { Frame.ratio(505, false), Frame.ratio(410, true) };
+        Felder[16] = new int[] { Frame.ratio(592, false), Frame.ratio(410, true) };
+        Felder[17] = new int[] { Frame.ratio(682, false), Frame.ratio(410, true) };
+        Felder[18] = new int[] { Frame.ratio(769, false), Frame.ratio(410, true) };
+        Felder[19] = new int[] { Frame.ratio(857, false), Frame.ratio(410, true) };
+        Felder[20] = new int[] { Frame.ratio(857, false), Frame.ratio(320, true) };
+        Felder[21] = new int[] { Frame.ratio(857, false), Frame.ratio(235, true) };
+        Felder[22] = new int[] { Frame.ratio(857, false), Frame.ratio(145, true) };
+        Felder[23] = new int[] { Frame.ratio(857, false), Frame.ratio(58, true) };
+        Felder[24] = new int[] { Frame.ratio(945, false), Frame.ratio(58, true) };
+        Felder[25] = new int[] { Frame.ratio(1033, false), Frame.ratio(58, true) };
+        Felder[26] = new int[] { Frame.ratio(1033, false), Frame.ratio(145, true) };
+        Felder[27] = new int[] { Frame.ratio(1033, false), Frame.ratio(234, true) };
+        Felder[28] = new int[] { Frame.ratio(1033, false), Frame.ratio(320, true) };
+        Felder[29] = new int[] { Frame.ratio(1033, false), Frame.ratio(409, true) };
+        Felder[30] = new int[] { Frame.ratio(1122, false), Frame.ratio(409, true) };
+        Felder[31] = new int[] { Frame.ratio(1210, false), Frame.ratio(409, true) };
+        Felder[32] = new int[] { Frame.ratio(1298, false), Frame.ratio(409, true) };
+        Felder[33] = new int[] { Frame.ratio(1386, false), Frame.ratio(409, true) };
+        Felder[34] = new int[] { Frame.ratio(1386, false), Frame.ratio(497, true) };
+        Felder[35] = new int[] { Frame.ratio(1386, false), Frame.ratio(584, true) };
+        Felder[36] = new int[] { Frame.ratio(1299, false), Frame.ratio(584, true) };
+        Felder[37] = new int[] { Frame.ratio(1209, false), Frame.ratio(584, true) };
+        Felder[38] = new int[] { Frame.ratio(1122, false), Frame.ratio(584, true) };
+        Felder[39] = new int[] { Frame.ratio(1034, false), Frame.ratio(584, true) };
+        Felder[40] = new int[] { Frame.ratio(1034, false), Frame.ratio(673, true) };
+        Felder[41] = new int[] { Frame.ratio(1034, false), Frame.ratio(761, true) };
+        Felder[42] = new int[] { Frame.ratio(1034, false), Frame.ratio(850, true) };
+        Felder[43] = new int[] { Frame.ratio(1034, false), Frame.ratio(938, true) };
+        Felder[44] = new int[] { Frame.ratio(945, false), Frame.ratio(938, true) };
+        Felder[45] = new int[] { Frame.ratio(945, false), Frame.ratio(850, true) };
+        Felder[46] = new int[] { Frame.ratio(945, false), Frame.ratio(760, true) };
+        Felder[47] = new int[] { Frame.ratio(945, false), Frame.ratio(673, true) };
+        Felder[48] = new int[] { Frame.ratio(945, false), Frame.ratio(585, true) };
 
     }
 
@@ -205,7 +207,7 @@ public class Players {
             Playername[i].setText(Teams[i]);
 
             Playername[i].setLocation(Playerlabel[i].getX(),
-                    Frame.ratio(Playerlabel[i].getY() - Playerlabel[1].getHeight() / 2));
+                    (Playerlabel[i].getY() - Playerlabel[1].getHeight() / 2));
         }
 
     }
@@ -218,6 +220,7 @@ public class Players {
             }
         }
         System.out.println("Feld nicht gefunden!");
+        System.out.println();
         return -1;
     }
 
@@ -259,18 +262,21 @@ public class Players {
 
     public void refresh() {
 
-        for (int i = 1; i < Playerlabel.length; i++) {
-            LastField[i] = getPlayerField(Playerlabel, i);
-
-        }
         frame.getContentPane().removeAll();
+
+        Player();
 
         for (int i = 1; i < Playerlabel.length; i++) {
             Playerlabel[i].setIcon((getIcon(i)));
             game.Move(Felder, Playerlabel, i, LastField[i]);
         }
 
-        Player();
+    }
+
+    public void save() {
+        for (int i = 1; i < Playerlabel.length; i++) {
+            LastField[i] = getPlayerField(Playerlabel, i);
+        }
     }
 
     public void refreshJFrame() {
