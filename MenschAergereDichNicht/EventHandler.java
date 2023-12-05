@@ -2,7 +2,6 @@ package MenschAergereDichNicht;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -57,21 +56,30 @@ public class EventHandler implements KeyListener {
         }
 
         if (e.getKeyCode() == KeyEvent.VK_F11) {
-            refreshJFrame();
-
-            if (frame.isUndecorated()) {
-                frame.dispose();
-                frame.setUndecorated(false);
-                frame.setVisible(true);
-                Menus menus = new Menus();
-                menus.Buttons();
-            } else {
-                if (!frame.isUndecorated()) {
+            Thread thread1 = new Thread(() -> {
+                if (frame.isUndecorated()) {
                     frame.dispose();
-                    frame.setUndecorated(true);
-                    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    frame.setUndecorated(false);
                     frame.setVisible(true);
+                    Menus menus = new Menus();
+                    menus.Buttons();
+                } else {
+                    if (!frame.isUndecorated()) {
+                        frame.dispose();
+                        frame.setUndecorated(true);
+                        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                        frame.setVisible(true);
+                    }
                 }
+            });
+
+            if (!thread1.isAlive()) {
+                thread1.start();
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e2) {
+                // TODO: handle exception
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_F4) {
@@ -105,13 +113,22 @@ public class EventHandler implements KeyListener {
 
             @Override
             public void componentResized(ComponentEvent e) {
-                if (Menus.GameMode != null) {
-                    game.refreshAll();
-                } else {
-                    frame.getContentPane().removeAll();
-                    menus.Buttons();
+                Thread ResizeThread = new Thread(() -> {
+                    if (Menus.GameMode != null) {
+                        game.refreshAll();
+                    } else {
+                        frame.getContentPane().removeAll();
+                        menus.Buttons();
+                    }
+                    frame.setSize(e.getComponent().getSize());
+                });
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                    // TODO: handle exception
                 }
-                frame.setSize(e.getComponent().getSize());
+                ResizeThread.start();
+
             }
         });
     }
