@@ -10,21 +10,26 @@ import javax.swing.JFrame;
 
 class Frame {
 
-    static GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-    static GraphicsDevice[] gd = ge.getScreenDevices();
-    static int defOutput = getDefaultScreen();
+    static GraphicsEnvironment ge;
+    static GraphicsDevice[] gd;
+    static int defOutput;
     static int output = 0;
-    static JFrame frame = new JFrame("Mensch ärgere Dich nicht!");
+    static JFrame frame;
     static boolean decorated = true;
 
     public static void main(String[] args) {
-        FrameUI();
+        Frame.FrameUI();
 
     }
 
     static void FrameUI() {
+        frame = new JFrame("Mensch ärgere Dich nicht!");
         ImageIcon img = new ImageIcon("MenschAergereDichNicht\\Sprites\\Board\\Icon.png");
         frame.setLocationRelativeTo(null);
+
+        ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        gd = ge.getScreenDevices();
+        defOutput = getDefaultScreen();
 
         try {
             gd[output].getDefaultConfiguration();

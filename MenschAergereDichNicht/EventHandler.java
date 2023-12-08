@@ -73,11 +73,9 @@ public class EventHandler implements KeyListener {
                 }
             });
 
-            if (!thread1.isAlive()) {
-                thread1.start();
-            }
             try {
-                Thread.sleep(1000);
+                thread1.join();
+                // Thread.sleep(1000);
             } catch (Exception e2) {
                 // TODO: handle exception
             }
@@ -122,12 +120,13 @@ public class EventHandler implements KeyListener {
                     }
                     frame.setSize(e.getComponent().getSize());
                 });
+
                 try {
-                    Thread.sleep(1000);
-                } catch (Exception e) {
+                    ResizeThread.join();
+                    // Thread.sleep(1000);
+                } catch (Exception e1) {
                     // TODO: handle exception
                 }
-                ResizeThread.start();
 
             }
         });
