@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 
 public class Dice {
 
-    static JFrame frame = Frame.frame;
+    JFrame frame = Frame.frame;
     Game game = new Game();
     ImageIcon icon;
     JLabel dice = Game.IconLabel[7];

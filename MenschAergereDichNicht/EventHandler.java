@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 public class EventHandler implements KeyListener {
 
-    static JFrame frame = Frame.frame;
+    JFrame frame = Frame.frame;
     Game game = new Game();
     Menus menus = new Menus();
 
@@ -56,26 +56,25 @@ public class EventHandler implements KeyListener {
         }
 
         if (e.getKeyCode() == KeyEvent.VK_F11) {
-            Thread thread1 = new Thread(() -> {
-                if (frame.isUndecorated()) {
+            if (frame.isUndecorated()) {
+                frame.dispose();
+                frame.setUndecorated(false);
+                frame.setVisible(true);
+                Menus menus = new Menus();
+                menus.Buttons();
+            } else {
+                if (!frame.isUndecorated()) {
                     frame.dispose();
-                    frame.setUndecorated(false);
+                    frame.setUndecorated(true);
+                    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     frame.setVisible(true);
                     Menus menus = new Menus();
                     menus.Buttons();
-                } else {
-                    if (!frame.isUndecorated()) {
-                        frame.dispose();
-                        frame.setUndecorated(true);
-                        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        frame.setVisible(true);
-                    }
                 }
-            });
+            }
 
             try {
-                thread1.join();
-                // Thread.sleep(1000);
+                Thread.sleep(1000);
             } catch (Exception e2) {
                 // TODO: handle exception
             }
@@ -111,19 +110,16 @@ public class EventHandler implements KeyListener {
 
             @Override
             public void componentResized(ComponentEvent e) {
-                Thread ResizeThread = new Thread(() -> {
-                    if (Menus.GameMode != null) {
-                        game.refreshAll();
-                    } else {
-                        frame.getContentPane().removeAll();
-                        menus.Buttons();
-                    }
-                    frame.setSize(e.getComponent().getSize());
-                });
+
+                if (Menus.GameMode != null) {
+                    game.refreshAll();
+                } else {
+                    frame.getContentPane().removeAll();
+                    menus.Buttons();
+                }
 
                 try {
-                    ResizeThread.join();
-                    // Thread.sleep(1000);
+                    Thread.sleep(1000);
                 } catch (Exception e1) {
                     // TODO: handle exception
                 }

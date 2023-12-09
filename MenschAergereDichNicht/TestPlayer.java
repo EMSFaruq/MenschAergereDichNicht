@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 
 public class TestPlayer {
 
-    static JFrame frame = Frame.frame;
+    JFrame frame = Frame.frame;
     static JLabel[] Test = new JLabel[2];
     static int[][] Felder = new int[45][1];
 

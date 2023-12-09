@@ -2,9 +2,9 @@ package MenschAergereDichNicht;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -16,6 +16,7 @@ class Frame {
     static int output = 0;
     static JFrame frame;
     static boolean decorated = true;
+    static GraphicsConfiguration Screen;
 
     public static void main(String[] args) {
         Frame.FrameUI();
@@ -24,24 +25,27 @@ class Frame {
 
     static void FrameUI() {
         frame = new JFrame("Mensch ärgere Dich nicht!");
-        ImageIcon img = new ImageIcon("MenschAergereDichNicht\\Sprites\\Board\\Icon.png");
-        frame.setLocationRelativeTo(null);
 
         ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         gd = ge.getScreenDevices();
         defOutput = getDefaultScreen();
 
         try {
-            gd[output].getDefaultConfiguration();
+            Screen = gd[output].getDefaultConfiguration();
         } catch (Exception e) {
-            output = defOutput;
+            Screen = gd[defOutput].getDefaultConfiguration();
         }
 
-        Rectangle DisplayBounds = gd[output].getDefaultConfiguration().getBounds();
-        frame.setSize((int) DisplayBounds.getWidth(), (int) DisplayBounds.getHeight());
-        frame.setLocation(gd[output].getDefaultConfiguration().getBounds().getLocation());
+        int Width = (int) Screen.getBounds().getWidth();
+        int Height = (int) Screen.getBounds().getHeight();
+
+        frame.setSize(Width, Height);
+        frame.setLocation(Screen.getBounds().getLocation());
+
         frame.setLayout(null);
         frame.setMinimumSize(new Dimension(800, 600));
+
+        ImageIcon img = new ImageIcon("MenschAergereDichNicht\\Sprites\\Board\\Icon.png");
         frame.setIconImage(img.getImage());
 
         // Frame Behavior
@@ -77,6 +81,7 @@ class Frame {
                 return i;
             }
         }
+        System.out.println("Standart Monitor nicht gefunden!");
         return -1;
     }
 
@@ -87,6 +92,7 @@ class Frame {
                 return i;
             }
         }
+        System.out.println("Aktuellen Monitor nicht gefunden!");
         return -1;
     }
 }

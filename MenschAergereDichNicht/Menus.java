@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 
 public class Menus {
 
-    static JFrame frame = Frame.frame;
+    JFrame frame = Frame.frame;
     static int PosX;
     static int PosY;
     static String CurrentButton;

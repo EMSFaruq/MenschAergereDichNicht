@@ -18,7 +18,7 @@ public class Game {
     static Players players;
     static Dice dice;
     static Board bg = new Board();
-    static JFrame frame = Frame.frame;
+    JFrame frame = Frame.frame;
     static JLabel[] IconLabel = new JLabel[99];
     static JLabel[] TextLabel = new JLabel[99];
     boolean LabelInfos = false;

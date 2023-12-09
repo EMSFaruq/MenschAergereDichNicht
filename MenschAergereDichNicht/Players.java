@@ -18,7 +18,7 @@ public class Players {
     int[] LastField = new int[Playerlabel.length];
     int TeamSize = 4;
     String[] Teams = new String[Playerlabel.length / TeamSize];
-    static JFrame frame = Frame.frame;
+    JFrame frame = Frame.frame;
 
     public static void main(String[] args) {
         Frame.FrameUI();

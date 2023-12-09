@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 
 public class Board {
 
-    public static JFrame frame = Frame.frame;
+    public JFrame frame = Frame.frame;
 
     public static void main(String[] args) {
         Frame.FrameUI();
