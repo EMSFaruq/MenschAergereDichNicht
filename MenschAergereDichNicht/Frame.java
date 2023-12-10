@@ -39,7 +39,8 @@ class Frame {
         int Width = (int) Screen.getBounds().getWidth();
         int Height = (int) Screen.getBounds().getHeight();
 
-        frame.setSize(Width, Height);
+        // frame.setSize(Width, Height);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLocation(Screen.getBounds().getLocation());
 
         frame.setLayout(null);
@@ -70,9 +71,9 @@ class Frame {
 
     static int ratio(int size, boolean Height) {
         if (Height) {
-            return 1920 * (size - 42) / 1920;
+            return (frame.getHeight() * (size - 42)) / 1080;
         } else
-            return (1920 * size) / 1920;
+            return (frame.getWidth() * size) / 1920;
     }
 
     static int getDefaultScreen() {

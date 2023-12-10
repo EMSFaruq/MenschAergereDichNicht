@@ -84,6 +84,11 @@ public class Server {
 
         });
         TestThread.start();
+        try {
+            socket.accept();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     Thread SendThread = new Thread(() -> {

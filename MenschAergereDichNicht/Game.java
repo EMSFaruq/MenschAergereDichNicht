@@ -166,12 +166,14 @@ public class Game {
                 Frame.ratio(icon.getIconHeight(), true),
                 Image.SCALE_DEFAULT));
         if (ID == 5) {
+            System.out.println("ID ist 5!");
             System.out.println(icon.getIconWidth());
             System.out.println(icon.getIconHeight());
         }
 
         IconLabel[ID].setSize(icon.getIconWidth(), icon.getIconHeight());
         IconLabel[ID].setIcon(icon);
+
         if (LabelInfos) {
             System.out.println("ID: " + ID + " IconSize: " + icon.getIconWidth() + " " + icon.getIconHeight());
             System.out

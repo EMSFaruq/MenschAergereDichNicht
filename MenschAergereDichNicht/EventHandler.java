@@ -14,6 +14,7 @@ public class EventHandler implements KeyListener {
     JFrame frame = Frame.frame;
     Game game = new Game();
     Menus menus = new Menus();
+    boolean resize;
 
     public static void main(String[] args) {
         Frame.FrameUI();
@@ -68,8 +69,6 @@ public class EventHandler implements KeyListener {
                     frame.setUndecorated(true);
                     frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                     frame.setVisible(true);
-                    Menus menus = new Menus();
-                    menus.Buttons();
                 }
             }
 
@@ -85,6 +84,7 @@ public class EventHandler implements KeyListener {
 
                 @Override
                 public void mouseMoved(MouseEvent e) {
+                    System.out.println("Maus Position:");
                     System.out.println(e.getX() + " " + e.getY());
                 }
             });
@@ -110,22 +110,25 @@ public class EventHandler implements KeyListener {
 
             @Override
             public void componentResized(ComponentEvent e) {
-
-                if (Menus.GameMode != null) {
-                    game.refreshAll();
-                } else {
-                    frame.getContentPane().removeAll();
-                    menus.Buttons();
+                if (Wait((int) 0.01)) {
+                    if (Menus.GameMode != null) {
+                        game.refreshAll();
+                    } else {
+                        frame.getContentPane().removeAll();
+                        menus.Buttons();
+                    }
                 }
-
-                try {
-                    Thread.sleep(1000);
-                } catch (Exception e1) {
-                    // TODO: handle exception
-                }
-
             }
         });
+    }
+
+    boolean Wait(int time) {
+        try {
+            Thread.sleep(time * 1000);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 }
