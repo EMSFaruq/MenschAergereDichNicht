@@ -34,7 +34,7 @@ public class Menus {
     void Buttons() {
 
         int MiddleX = frame.getWidth() / 2;
-        int MiddleY = frame.getHeight() / 2 + 100;
+        int MiddleY = frame.getHeight() / 2 + frame.getHeight() / 4;
         int Abstand = 25;
 
         JLabel[] Button = new JLabel[4 + 1];
@@ -51,8 +51,8 @@ public class Menus {
             }
 
             img = new ImageIcon(img.getImage().getScaledInstance(
-                    Frame.ratio(img.getIconWidth(), false),
-                    Frame.ratio(img.getIconHeight(), false),
+                    img.getIconWidth(),
+                    Frame.ratio(img.getIconHeight(), !frame.isUndecorated()),
                     Image.SCALE_DEFAULT));
 
             if (i == 1 || i == 3) {

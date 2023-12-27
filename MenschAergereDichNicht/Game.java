@@ -162,8 +162,8 @@ public class Game {
 
         // Auto Ratio if Undecorated or not :D
         icon = new ImageIcon(icon.getImage().getScaledInstance(
-                Frame.ratio(icon.getIconWidth(), false),
-                Frame.ratio(icon.getIconHeight(), true),
+                icon.getIconWidth(),
+                Frame.ratio(icon.getIconHeight(), !frame.isUndecorated()),
                 Image.SCALE_DEFAULT));
         if (ID == 5) {
             System.out.println("ID ist 5!");
@@ -251,7 +251,7 @@ public class Game {
                 break;
 
             case "Middle":
-                label[ID].setLocation((int) label[ID].getX(), frame.getHeight() / 2 - label[ID].getHeight() / 2);
+                label[ID].setLocation((int) label[ID].getX(), frame.getHeight() / 2);
                 break;
 
             case "Preview":
