@@ -51,8 +51,8 @@ public class Menus {
             }
 
             img = new ImageIcon(img.getImage().getScaledInstance(
-                    img.getIconWidth(),
-                    Frame.ratio(img.getIconHeight(), !frame.isUndecorated()),
+                    Frame.ratio(img.getIconWidth(), false),
+                    Frame.ratio(img.getIconHeight(), false),
                     Image.SCALE_DEFAULT));
 
             if (i == 1 || i == 3) {

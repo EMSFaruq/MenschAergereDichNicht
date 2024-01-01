@@ -20,7 +20,6 @@ class Frame {
 
     public static void main(String[] args) {
         Frame.FrameUI();
-
     }
 
     static void FrameUI() {
@@ -40,6 +39,7 @@ class Frame {
         int Height = (int) Screen.getBounds().getHeight();
 
         // frame.setSize(Width, Height);
+        frame.setSize(Width, Height);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setLocation(Screen.getBounds().getLocation());
 
@@ -82,6 +82,12 @@ class Frame {
                 return i;
             }
         }
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         System.out.println("Standart Monitor nicht gefunden!");
         return -1;
     }
@@ -92,6 +98,12 @@ class Frame {
             if (gd[i] == currentDevice) {
                 return i;
             }
+        }
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         System.out.println("Aktuellen Monitor nicht gefunden!");
         return -1;

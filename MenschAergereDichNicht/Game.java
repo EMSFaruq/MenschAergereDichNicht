@@ -52,6 +52,12 @@ public class Game {
                 return i;
             }
         }
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         System.out.println("Object nicht gefunden!");
         return -1;
     }
@@ -77,7 +83,6 @@ public class Game {
 
     public void refreshPlayers() {
         try {
-            players.save();
             players.refresh();
         } catch (Exception e) {
             createPlayers();
@@ -165,21 +170,9 @@ public class Game {
                 icon.getIconWidth(),
                 Frame.ratio(icon.getIconHeight(), !frame.isUndecorated()),
                 Image.SCALE_DEFAULT));
-        if (ID == 5) {
-            System.out.println("ID ist 5!");
-            System.out.println(icon.getIconWidth());
-            System.out.println(icon.getIconHeight());
-        }
 
         IconLabel[ID].setSize(icon.getIconWidth(), icon.getIconHeight());
         IconLabel[ID].setIcon(icon);
-
-        if (LabelInfos) {
-            System.out.println("ID: " + ID + " IconSize: " + icon.getIconWidth() + " " + icon.getIconHeight());
-            System.out
-                    .println("ID: " + ID + " LabelSize: " + IconLabel[ID].getWidth() + " " + IconLabel[ID].getHeight());
-            System.out.println("ID: " + ID + " Location: " + IconLabel[ID].getX() + " " + IconLabel[ID].getY());
-        }
 
         try {
             int LocX = Integer.parseInt(PosX);

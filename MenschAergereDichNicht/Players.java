@@ -42,10 +42,10 @@ public class Players {
             }
             Playerlabel[i] = new JLabel();
             ImageIcon icon = new ImageIcon("MenschAergereDichNicht\\Sprites\\Characters\\Player" + IconNummer + ".png");
-
-            Playerlabel[i].setIcon(new ImageIcon(icon.getImage().getScaledInstance(icon.getIconWidth(),
-                    Frame.ratio(icon.getIconHeight(), !frame.isUndecorated()),
-                    Image.SCALE_SMOOTH)));
+            icon = new ImageIcon(icon.getImage().getScaledInstance(
+                    icon.getIconWidth(),
+                    Frame.ratio(icon.getIconHeight(), false), Image.SCALE_SMOOTH));
+            Playerlabel[i].setIcon(icon);
             Playerlabel[i].setSize(icon.getIconWidth(), icon.getIconHeight());
 
             if (LastField != null) {
@@ -68,23 +68,9 @@ public class Players {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    getFields();
-                    int Player = getPlayer(Playerlabel, (JLabel) e.getSource());
-                    getStartPoint(getTeam(Player));
-                    int fieldNumber = getPlayerField(Playerlabel, Player);
-                    int differenz = getTeam(Player) * 10 - 10;
-
-                    if (getTeam(Player) == PersonalTeam) {
-
-                        if (fieldNumber == Felder.length - 1) {
-                            return;
-                        }
-
-                        if (fieldNumber + schritte >= 40) {
-                            MovementHandler(fieldNumber + schritte - differenz, Player);
-                        } else
-                            MovementHandler(fieldNumber + 1, Player);
-                    }
+                    getPlayerField(Playerlabel, getPlayer(Playerlabel, (JLabel) e.getComponent()) + 1);
+                    System.out.println(
+                            getPlayerField(Playerlabel, getPlayer(Playerlabel, (JLabel) e.getComponent()) + 1));
                 }
             });
 
@@ -146,14 +132,15 @@ public class Players {
         }
 
         for (int i = 0; i <= 4; i++) {
-            Felder[i] = new int[] { Frame.ratio(Felder[i][0], false),
-                    Frame.ratio(Felder[i][1], !frame.isUndecorated()) };
+            Felder[i] = new int[] {
+                    Felder[i][0],
+                    Frame.ratio(Felder[i][1], false)
+            };
         }
     }
 
     void getFields() {
         refreshJFrame();
-
         Felder[5] = new int[] { 857, 938 };
         Felder[6] = new int[] { 857, 850 };
         Felder[7] = new int[] { 857, 760 };
@@ -200,8 +187,10 @@ public class Players {
         Felder[48] = new int[] { 945, 585 };
 
         for (int i = 0; i < Felder.length; i++) {
-            Felder[i] = new int[] { Frame.ratio(Felder[i][0], false),
-                    Frame.ratio(Felder[i][1], !frame.isUndecorated()) };
+            Felder[i] = new int[] {
+                    Frame.ratio(Felder[i][0], false),
+                    Frame.ratio(Felder[i][1], false)
+            };
         }
     }
 
@@ -210,26 +199,29 @@ public class Players {
         return icon;
     }
 
-    void playerNames() {
-        for (int i = 1; i < Playerlabel.length; i++) {
-            Playername[i] = new JLabel();
-            Playername[i].setText(Teams[i]);
+    // void playerNames() {
+    // for (int i = 1; i < Playerlabel.length; i++) {
+    // Playername[i] = new JLabel();
+    // Playername[i].setText(Teams[i]);
 
-            Playername[i].setLocation(Playerlabel[i].getX(),
-                    (Playerlabel[i].getY() - Playerlabel[1].getHeight() / 2));
-        }
-
-    }
+    // Playername[i].setLocation(Playerlabel[i].getX(),
+    // (Playerlabel[i].getY() - Playerlabel[1].getHeight() / 2));
+    // }
+    // }
 
     static int getPlayerField(JLabel[] Playerlabel, int PlayerNum) {
 
-        for (int i = 0; i < Felder.length; i++) {
-            if (Playerlabel[PlayerNum].getX() == Felder[i][0] && Playerlabel[PlayerNum].getY() == Felder[i][1]) {
-                return i;
-            }
+        if (Playerlabel[PlayerNum].getX() == Felder[PlayerNum][0]
+                && Playerlabel[PlayerNum].getY() == Felder[PlayerNum][1]) {
+            return PlayerNum;
+        }
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         System.out.println("Feld nicht gefunden!");
-        System.out.println();
         return -1;
     }
 
@@ -238,6 +230,12 @@ public class Players {
             if (Button[i] == Player) {
                 return i;
             }
+        }
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         System.out.println("Spieler nicht gefunden!");
         return -1;
@@ -265,14 +263,19 @@ public class Players {
         } else if (Spieler <= 16) {
             return 4;
         }
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         System.out.println("Team nicht gefunden!");
         return -1;
     }
 
     public void refresh() {
-
+        save();
         frame.getContentPane().removeAll();
-
         Player();
 
         for (int i = 1; i < Playerlabel.length; i++) {
@@ -283,7 +286,7 @@ public class Players {
     }
 
     public void save() {
-        for (int i = 1; i < Playerlabel.length; i++) {
+        for (int i = 1; i < Felder.length; i++) {
             LastField[i] = getPlayerField(Playerlabel, i);
         }
     }

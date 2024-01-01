@@ -89,7 +89,7 @@ public class TestPlayer {
         };
         Test[1].addKeyListener(keyListener);
         Test[1].setFocusable(true); // Wichtig, um den Focus auf das Label zu setzen
-        // Test[1].requestFocusInWindow(); // Wichtig, um den Fokus auf das Label zu
+        Test[1].requestFocusInWindow(); // Wichtig, um den Fokus auf das Label zu
         // setzen
     }
 
@@ -140,7 +140,8 @@ public class TestPlayer {
         Felder[43] = new int[] { 945, 673 };
         Felder[44] = new int[] { 945, 585 };
         for (int i = 0; i < Felder.length; i++) {
-            Felder[i] = new int[] { Frame.ratio(Felder[i][0], !frame.isUndecorated()),
+            Felder[i] = new int[] {
+                    Frame.ratio(Felder[i][0], false),
                     Frame.ratio(Felder[i][1], !frame.isUndecorated()) };
         }
         Game game = new Game();
@@ -153,6 +154,12 @@ public class TestPlayer {
             if (Test[PlayerNum].getX() == Felder[i][0] && Test[PlayerNum].getY() == Felder[i][1]) {
                 return i;
             }
+        }
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         System.out.println("TestFeld nicht gefunden!");
         return -1;
