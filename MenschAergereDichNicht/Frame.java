@@ -13,7 +13,7 @@ class Frame {
     static GraphicsEnvironment ge;
     static GraphicsDevice[] gd;
     static int defOutput;
-    static int output = 0;
+    static int output = 2;
     static JFrame frame;
     static boolean decorated = true;
     static GraphicsConfiguration Screen;
