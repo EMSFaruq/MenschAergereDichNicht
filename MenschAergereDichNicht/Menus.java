@@ -32,7 +32,6 @@ public class Menus {
     }
 
     void Buttons() {
-
         int MiddleX = frame.getWidth() / 2;
         int MiddleY = frame.getHeight() / 2 + frame.getHeight() / 4;
         int Abstand = 25;
@@ -109,6 +108,7 @@ public class Menus {
         game.refreshJFrame();
         previewPicture();
         startMenu();
+
     }
 
     void addEscMenu(String Menu) {

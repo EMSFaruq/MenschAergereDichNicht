@@ -162,7 +162,6 @@ public class Game {
     }
 
     void create(int ID, ImageIcon icon, String PosX, String PosY) {
-        refreshJFrame();
         IconLabel[ID] = new JLabel();
 
         // Auto Ratio if Undecorated or not :D

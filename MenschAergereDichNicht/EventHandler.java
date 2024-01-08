@@ -116,6 +116,7 @@ public class EventHandler implements KeyListener {
                     } else {
                         frame.getContentPane().removeAll();
                         menus.Buttons();
+
                     }
                 }
             }
