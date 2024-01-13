@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
@@ -14,10 +15,10 @@ import javax.swing.SwingUtilities;
 
 public class Test {
 
-    int rows = 5;
-    int cols = 5;
-    int width = 800 * 2;
-    int height = 600 * 2;
+    int rows = 3;
+    int cols = 3;
+    int width = 800;
+    int height = 600;
     int IconWidth = width / rows;
     int IconHeight = height / cols;
 
@@ -58,16 +59,14 @@ public class Test {
     }
 
     ImageIcon drawIcon(int width, int height, int r, int g, int b, int StrokeSize) {
-        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Image image;
         Graphics gr = image.getGraphics();
         Graphics2D g2d = (Graphics2D) gr;
         g2d.setColor(new Color(100, 50, 50));
-        g2d.fillRect(0, 0, width, height);
+        g2d.fillRect(0, 0, width - StrokeSize / 2, height - StrokeSize / 2);
         g2d.setColor(new Color(0, 0, 0));
         g2d.setStroke(new BasicStroke(StrokeSize));
-
-        // Passe die Position und Größe des Rechtecks an
-        g2d.drawRect(StrokeSize / 2, StrokeSize / 2, width - StrokeSize, height - StrokeSize);
+        g2d.drawRect(StrokeSize / 2, StrokeSize / 2, width, height);
 
         return new ImageIcon(image);
     }
