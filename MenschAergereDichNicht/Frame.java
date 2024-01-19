@@ -71,7 +71,7 @@ class Frame {
 
     static int ratio(int size, boolean Height) {
         if (Height) {
-            return (frame.getHeight() * (size - 42)) / 1080;
+            return size + (frame.getHeight() - frame.getContentPane().getHeight()) / 1080;
         } else
             return (frame.getWidth() * size) / 1920;
     }
