@@ -21,7 +21,7 @@ public class Players {
     static JFrame frame = Frame.frame;
 
     public static void main(String[] args) {
-        Frame.FrameUI();
+        new Frame();
     }
 
     public void Player() {
@@ -44,7 +44,7 @@ public class Players {
             ImageIcon icon = new ImageIcon("MenschAergereDichNicht\\Sprites\\Characters\\Player" + IconNummer + ".png");
             icon = new ImageIcon(icon.getImage().getScaledInstance(
                     icon.getIconWidth(),
-                    Frame.ratio(icon.getIconHeight(), false), Image.SCALE_SMOOTH));
+                    Frame.ratio(icon.getIconHeight()), Image.SCALE_SMOOTH));
             Playerlabel[i].setIcon(icon);
             Playerlabel[i].setSize(icon.getIconWidth(), icon.getIconHeight());
 

@@ -23,7 +23,7 @@ public class Menus {
     String Menu;
 
     public static void main(String[] args) {
-        Frame.FrameUI();
+        new Frame();
     }
 
     void startMenu() {
@@ -50,8 +50,8 @@ public class Menus {
             }
 
             img = new ImageIcon(img.getImage().getScaledInstance(
-                    Frame.ratio(img.getIconWidth(), false),
-                    Frame.ratio(img.getIconHeight(), false),
+                    Frame.ratio(img.getIconWidth()),
+                    Frame.ratio(img.getIconHeight()),
                     Image.SCALE_DEFAULT));
 
             if (i == 1 || i == 3) {

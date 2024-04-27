@@ -1,111 +1,138 @@
+
 package MenschAergereDichNicht;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import java.awt.Point;
+import java.awt.Rectangle;
 
-class Frame {
+/**
+ * Frame
+ */
+public class Frame extends JPanel {
 
-    static GraphicsEnvironment ge;
-    static GraphicsDevice[] gd;
-    static int defOutput;
-    static int output = 2;
+    // Frame Variables
     static JFrame frame;
-    static boolean decorated = true;
-    static GraphicsConfiguration Screen;
+
+    // Display Variables
+    GraphicsEnvironment ge;
+    GraphicsDevice[] gd;
+    GraphicsDevice device;
+    static int output = 2;
+
+    // Display Size
+    GraphicsConfiguration screenConfiguration;
+    Rectangle screenSize;
+
+    // Display Position
+    Point screenPos;
+    int screenX;
+    int screenY;
+    int screenWidth;
+    int screenHeight;
+
+    // Game Panel
+    int panelX;
+    int panelY;
+    int panelWidth;
+    int panelHeight;
+    // static Graphics2D g2d;
+
+    // Class Import
+    Game game;
+
+    // JLabel
+    static JLabel BCoin = new JLabel();
 
     public static void main(String[] args) {
-        Frame.FrameUI();
+        new Frame().Init();
     }
 
-    static void FrameUI() {
-        frame = new JFrame("Mensch ärgere Dich nicht!");
+    public void Init() {
+        refreshVariables();
+        setFrame();
+        setPanel();
+        drawIconImage();
+        Menus m = new Menus();
+        m.Buttons();
+    }
 
+    static int ratio(int input) {
+        return input * (frame.getWidth() / 1920);
+    }
+
+    void refreshVariables() {
         ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         gd = ge.getScreenDevices();
-        defOutput = getDefaultScreen();
 
         try {
-            Screen = gd[output].getDefaultConfiguration();
+            device = gd[output];
         } catch (Exception e) {
-            Screen = gd[defOutput].getDefaultConfiguration();
+            device = ge.getDefaultScreenDevice();
         }
 
-        int Width = (int) Screen.getBounds().getWidth();
-        int Height = (int) Screen.getBounds().getHeight();
+        screenConfiguration = device.getDefaultConfiguration();
 
-        // frame.setSize(Width, Height);
-        frame.setSize(Width, Height);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setLocation(Screen.getBounds().getLocation());
+        // Screen
+        screenPos = screenConfiguration.getBounds().getLocation();
+        screenSize = screenConfiguration.getBounds();
+        screenWidth = (int) screenSize.getWidth();
+        screenHeight = (int) screenSize.getHeight();
+        screenX = (int) screenPos.getX();
+        screenY = (int) screenPos.getY();
 
-        frame.setLayout(null);
-        frame.setMinimumSize(new Dimension(800, 600));
+        // Panel
+        panelWidth = 600;
+        panelHeight = 1080;
+        panelX = screenWidth / 2 - panelWidth / 2;
+        panelY = 0;
 
-        ImageIcon img = new ImageIcon("MenschAergereDichNicht\\Sprites\\Board\\Icon.png");
-        frame.setIconImage(img.getImage());
+    }
 
-        // Frame Behavior
+    void setFrame() {
+
+        // Base Frame
+        frame = new JFrame("Crypto Tycoon | By MrByte");
+        frame.pack();
+        frame.setSize(screenWidth, screenHeight);
+        frame.setMinimumSize(new Dimension(panelWidth, panelHeight));
+        frame.setMaximumSize(new Dimension(1920, 1080));
+        frame.setLocation(screenX, screenY);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(true);
-        Color color = new Color(42, 42, 42);
-        frame.getContentPane().setBackground(color);
+        frame.setLayout(null);
 
-        EventHandler handler = new EventHandler();
-        handler.addKeyListener();
-        handler.addResizeListener();
-
-        Menus menus = new Menus();
-        menus.Buttons();
-        frame.repaint();
-
-        Board background = new Board();
-        background.createBackground();
-
+        // Frame Design
+        frame.getContentPane().setBackground(new Color(43, 43, 43));
         frame.setVisible(true);
+
+        // Adding Game Panel
+        frame.add(this);
     }
 
-    static int ratio(int size, boolean Height) {
-        if (Height) {
-            return size + (frame.getHeight() - frame.getContentPane().getHeight()) / 1080;
-        } else
-            return (frame.getWidth() * size) / 1920;
+    void setPanel() {
+        setSize(panelWidth, panelHeight);
+        setLocation(panelX, panelY);
     }
 
-    static int getDefaultScreen() {
-        for (int i = 0; i < gd.length; i++) {
-            if (gd[i] == ge.getDefaultScreenDevice()) {
-                return i;
-            }
-        }
-        try {
-            throw new Exception();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        System.out.println("Standart Monitor nicht gefunden!");
-        return -1;
+    void drawIconImage() {
+        ImageIcon icon = new ImageIcon("Sprites\\Board\\Board.png");
+        frame.setIconImage(icon.getImage());
     }
 
-    static int currentScreen() {
-        GraphicsDevice currentDevice = frame.getGraphicsConfiguration().getDevice();
-        for (int i = 0; i < gd.length; i++) {
-            if (gd[i] == currentDevice) {
-                return i;
-            }
-        }
-        try {
-            throw new Exception();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        System.out.println("Aktuellen Monitor nicht gefunden!");
-        return -1;
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        setLocation(frame.getWidth() / 2 - getWidth() / 2, 0);
+        repaint();
+
     }
 }

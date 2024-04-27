@@ -24,8 +24,7 @@ public class Game {
     boolean LabelInfos = false;
 
     public static void main(String[] args) {
-        Frame.output = 1;
-        Frame.FrameUI();
+        new Frame();
     }
 
     public void createGame() {
@@ -123,9 +122,9 @@ public class Game {
                 // PADDDIIINNNNG MORRGEN MACHENNNNNN
                 // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
 
-                RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(Frame.ratio(40, false),
-                        Frame.ratio(40, false),
-                        Frame.ratio(35, false), Frame.ratio(40, false), cornerRadius, cornerRadius);
+                RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(Frame.ratio(40),
+                        Frame.ratio(40),
+                        Frame.ratio(35), Frame.ratio(40), cornerRadius, cornerRadius);
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.draw(roundedRectangle);
                 g2d.dispose();
@@ -137,13 +136,13 @@ public class Game {
         refreshJFrame();
 
         // Create first
-        Font CustomFont = new Font("Poor Richard", Font.PLAIN, Frame.ratio(100, false));
+        Font CustomFont = new Font("Poor Richard", Font.PLAIN, Frame.ratio(100));
         // TextLabel[ID] = createRoundedBorderLabel(Text, 16, 50);
         TextLabel[ID] = new JLabel();
         TextLabel[ID].setFont(CustomFont);
         TextLabel[ID].setHorizontalAlignment(JLabel.CENTER);
         TextLabel[ID].setVerticalAlignment(JLabel.CENTER);
-        TextLabel[ID].setSize(Frame.ratio(250, false), Frame.ratio(125, true));
+        TextLabel[ID].setSize(Frame.ratio(250), Frame.ratio(125));
 
         if (LabelInfos) {
             System.out.println("ID: " + ID + " TextSize: " + TextLabel[ID].getFont().getSize());
@@ -167,7 +166,7 @@ public class Game {
         // Auto Ratio if Undecorated or not :D
         icon = new ImageIcon(icon.getImage().getScaledInstance(
                 icon.getIconWidth(),
-                Frame.ratio(icon.getIconHeight(), !frame.isUndecorated()),
+                Frame.ratio(icon.getIconHeight()),
                 Image.SCALE_DEFAULT));
 
         IconLabel[ID].setSize(icon.getIconWidth(), icon.getIconHeight());
