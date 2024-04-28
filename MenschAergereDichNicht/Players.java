@@ -4,10 +4,9 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Players {
+public class Players extends Frame {
 
     static int[][] Felder = new int[48 + 1][2];
     static int PersonalTeam = 0;
@@ -18,14 +17,12 @@ public class Players {
     int[] LastField = new int[Playerlabel.length];
     int TeamSize = 4;
     String[] Teams = new String[Playerlabel.length / TeamSize];
-    static JFrame frame = Frame.frame;
 
     public static void main(String[] args) {
         new Frame();
     }
 
     public void Player() {
-        refreshJFrame();
 
         for (int i = 1; i < Playerlabel.length; i++) {
 
@@ -40,11 +37,12 @@ public class Players {
             } else if (i <= 16) {
                 IconNummer = 4;
             }
+
             Playerlabel[i] = new JLabel();
-            ImageIcon icon = new ImageIcon("MenschAergereDichNicht\\Sprites\\Characters\\Player" + IconNummer + ".png");
+            ImageIcon icon = getIcon(IconNummer);
             icon = new ImageIcon(icon.getImage().getScaledInstance(
                     icon.getIconWidth(),
-                    Frame.ratio(icon.getIconHeight()), Image.SCALE_SMOOTH));
+                    icon.getIconHeight(), Image.SCALE_SMOOTH));
             Playerlabel[i].setIcon(icon);
             Playerlabel[i].setSize(icon.getIconWidth(), icon.getIconHeight());
 
@@ -52,7 +50,7 @@ public class Players {
                 game.Move(Felder, Playerlabel, i, LastField[i]);
             }
 
-            frame.add(Playerlabel[i]);
+            add(Playerlabel[i]);
         }
 
         setTeam();
@@ -134,13 +132,12 @@ public class Players {
         for (int i = 0; i <= 4; i++) {
             Felder[i] = new int[] {
                     Felder[i][0],
-                    Frame.ratio(Felder[i][1], false)
+                    Felder[i][1]
             };
         }
     }
 
     void getFields() {
-        refreshJFrame();
         Felder[5] = new int[] { 857, 938 };
         Felder[6] = new int[] { 857, 850 };
         Felder[7] = new int[] { 857, 760 };
@@ -188,8 +185,8 @@ public class Players {
 
         for (int i = 0; i < Felder.length; i++) {
             Felder[i] = new int[] {
-                    Frame.ratio(Felder[i][0], false),
-                    Frame.ratio(Felder[i][1], false)
+                    Felder[i][0],
+                    Felder[i][1]
             };
         }
     }
@@ -218,7 +215,6 @@ public class Players {
         try {
             throw new Exception();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         System.out.println("Feld nicht gefunden!");
@@ -234,7 +230,6 @@ public class Players {
         try {
             throw new Exception();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         System.out.println("Spieler nicht gefunden!");
@@ -266,7 +261,6 @@ public class Players {
         try {
             throw new Exception();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         System.out.println("Team nicht gefunden!");
@@ -275,7 +269,7 @@ public class Players {
 
     public void refresh() {
         save();
-        frame.getContentPane().removeAll();
+        removeAll();
         Player();
 
         for (int i = 1; i < Playerlabel.length; i++) {
@@ -289,9 +283,5 @@ public class Players {
         for (int i = 1; i < Felder.length; i++) {
             LastField[i] = getPlayerField(Playerlabel, i);
         }
-    }
-
-    public void refreshJFrame() {
-        frame = Frame.frame;
     }
 }

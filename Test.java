@@ -59,7 +59,7 @@ public class Test {
     }
 
     ImageIcon drawIcon(int width, int height, int r, int g, int b, int StrokeSize) {
-        Image image;
+        Image image = new BufferedImage(width, height, g);
         Graphics gr = image.getGraphics();
         Graphics2D g2d = (Graphics2D) gr;
         g2d.setColor(new Color(100, 50, 50));

@@ -14,7 +14,7 @@ public class TestPlayer {
     static int[][] Felder = new int[45][1];
 
     public static void main(String[] args) {
-        Frame.FrameUI();
+        new Frame();
     }
 
     public void Player() {
@@ -141,8 +141,9 @@ public class TestPlayer {
         Felder[44] = new int[] { 945, 585 };
         for (int i = 0; i < Felder.length; i++) {
             Felder[i] = new int[] {
-                    Frame.ratio(Felder[i][0], false),
-                    Frame.ratio(Felder[i][1], !frame.isUndecorated()) };
+                    Felder[i][0],
+                    Felder[i][0]
+            };
         }
         Game game = new Game();
         game.Move(Felder, Test, PlayerNum, FeldNummer);

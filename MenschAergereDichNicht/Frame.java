@@ -66,10 +66,6 @@ public class Frame extends JPanel {
         m.Buttons();
     }
 
-    static int ratio(int input) {
-        return input * (frame.getWidth() / 1920);
-    }
-
     void refreshVariables() {
         ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         gd = ge.getScreenDevices();
@@ -91,8 +87,8 @@ public class Frame extends JPanel {
         screenY = (int) screenPos.getY();
 
         // Panel
-        panelWidth = 600;
-        panelHeight = 1080;
+        panelWidth = screenWidth;
+        panelHeight = screenHeight;
         panelX = screenWidth / 2 - panelWidth / 2;
         panelY = 0;
 
@@ -101,7 +97,7 @@ public class Frame extends JPanel {
     void setFrame() {
 
         // Base Frame
-        frame = new JFrame("Crypto Tycoon | By MrByte");
+        frame = new JFrame("Mensch Ärgere Dich Nicht | By MrByte");
         frame.pack();
         frame.setSize(screenWidth, screenHeight);
         frame.setMinimumSize(new Dimension(panelWidth, panelHeight));
@@ -124,15 +120,13 @@ public class Frame extends JPanel {
     }
 
     void drawIconImage() {
-        ImageIcon icon = new ImageIcon("Sprites\\Board\\Board.png");
+        ImageIcon icon = new ImageIcon("MenschAergereDichNicht\\Sprites\\Board\\Board.png");
         frame.setIconImage(icon.getImage());
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        setLocation(frame.getWidth() / 2 - getWidth() / 2, 0);
-        repaint();
-
+        refreshVariables();
     }
 }

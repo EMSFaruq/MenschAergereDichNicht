@@ -1,14 +1,14 @@
 package MenschAergereDichNicht;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Board {
 
-    public JFrame frame = Frame.frame;
+    JPanel frame = new Frame();
 
     public static void main(String[] args) {
-        Frame.FrameUI();
+        new Frame();
     }
 
     public void createBackground() {

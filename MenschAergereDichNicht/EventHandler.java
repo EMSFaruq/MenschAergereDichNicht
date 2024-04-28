@@ -9,15 +9,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
 
-public class EventHandler implements KeyListener {
+public class EventHandler extends Frame implements KeyListener {
 
-    JFrame frame = Frame.frame;
     Game game = new Game();
     Menus menus = new Menus();
     boolean resize;
 
     public static void main(String[] args) {
-        Frame.FrameUI();
+        new Frame();
     }
 
     @Override
@@ -28,9 +27,8 @@ public class EventHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
 
         if (e.getKeyCode() == KeyEvent.VK_F1) {
-            refreshJFrame();
-            System.out.println("Frame Position: " + frame.getX() + " " + frame.getY());
-            System.out.println("Resolution: " + frame.getWidth() + " " + frame.getHeight());
+            System.out.println("Panel Position: " + getX() + " " + getY());
+            System.out.println("Resolution: " + getWidth() + " " + getHeight());
             System.out.println("Fullscreen: " + frame.isUndecorated());
         }
 
@@ -49,11 +47,11 @@ public class EventHandler implements KeyListener {
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_F5) {
-            frame.repaint();
+            repaint();
         }
         if (e.getKeyCode() == KeyEvent.VK_F2) {
             frame.dispose();
-            Frame.FrameUI();
+            new Frame();
         }
 
         if (e.getKeyCode() == KeyEvent.VK_F11) {
@@ -96,10 +94,6 @@ public class EventHandler implements KeyListener {
 
     }
 
-    void refreshJFrame() {
-        frame = Frame.frame;
-    }
-
     void addKeyListener() {
         frame.addKeyListener(this);
     }
@@ -114,7 +108,7 @@ public class EventHandler implements KeyListener {
                     if (Menus.GameMode != null) {
                         game.refreshAll();
                     } else {
-                        frame.getContentPane().removeAll();
+                        frame.removeAll();
                         menus.Buttons();
 
                     }

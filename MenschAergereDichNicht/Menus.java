@@ -4,12 +4,10 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Menus {
+public class Menus extends Frame {
 
-    JFrame frame = Frame.frame;
     static int PosX;
     static int PosY;
     static String CurrentButton;
@@ -32,8 +30,8 @@ public class Menus {
     }
 
     void Buttons() {
-        int MiddleX = frame.getWidth() / 2;
-        int MiddleY = frame.getHeight() / 2 + frame.getHeight() / 4;
+        int MiddleX = getWidth() / 2;
+        int MiddleY = getHeight() / 2 + getHeight() / 4;
         int Abstand = 25;
 
         JLabel[] Button = new JLabel[4 + 1];
@@ -50,8 +48,8 @@ public class Menus {
             }
 
             img = new ImageIcon(img.getImage().getScaledInstance(
-                    Frame.ratio(img.getIconWidth()),
-                    Frame.ratio(img.getIconHeight()),
+                    img.getIconWidth(),
+                    img.getIconHeight(),
                     Image.SCALE_DEFAULT));
 
             if (i == 1 || i == 3) {
@@ -70,15 +68,18 @@ public class Menus {
             Button[i] = new JLabel(img);
             Button[i].setSize(img.getIconWidth(), img.getIconHeight());
             Button[i].setLocation(PosX, PosY);
-            frame.add(Button[i]);
+            Button[i].setIcon(img);
+            System.out.println(Button[i].getLocation());
+            add(Button[i]);
+
             Button[i].addMouseListener(new MouseAdapter() {
 
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     switch (Game.getObject(Button, (JLabel) e.getSource())) {
                         case 1:
-                            frame.getContentPane().removeAll();
-                            frame.repaint();
+                            removeAll();
+                            repaint();
                             game.createPlayers();
                             game.createCube();
                             game.createGame();
@@ -105,7 +106,6 @@ public class Menus {
             });
         }
         game.createText(1, "Local", "0", "0");
-        game.refreshJFrame();
         previewPicture();
         startMenu();
 
@@ -121,15 +121,15 @@ public class Menus {
                 EscImg = new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\EscMenu(MP).png");
             }
             if (Menu == "Open") {
-                frame.getContentPane().removeAll();
-                frame.repaint();
+                removeAll();
+                repaint();
                 game.create(2, EscImg, "Left", "Top");
 
             }
 
             if (Menu == "Close") {
-                frame.getContentPane().removeAll();
-                frame.repaint();
+                removeAll();
+                repaint();
                 game.refreshAll();
                 game.wait(50);
             }

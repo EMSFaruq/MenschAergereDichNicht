@@ -8,13 +8,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 
-public class Server {
+public class Server extends Frame {
 
-    JFrame frame = Frame.frame;
     Game game = new Game();
     String LocalIP;
     int MinPort = 1;
@@ -26,14 +24,14 @@ public class Server {
     static InetSocketAddress sockaddr;
 
     public static void main(String[] args) {
-        Frame.FrameUI();
+        new Frame();
         // createServer();
 
     }
 
     void ServerMenu() {
-        frame.getContentPane().removeAll();
-        frame.repaint();
+        removeAll();
+        repaint();
         createServer();
 
         try {
@@ -46,15 +44,15 @@ public class Server {
 
         try {
             JLabel Server1 = new JLabel("Localhost: " + Server.get(0));
-            Server1.setLocation(frame.getWidth() / 4, frame.getHeight() / 4);
+            Server1.setLocation(getWidth() / 4, getHeight() / 4);
             Server1.setSize(250, 125);
 
             Font CustomFont = new Font("Poor Richard", Font.PLAIN, 50);
             Server1.setFont(CustomFont);
-            frame.add(Server1);
+            add(Server1);
         } catch (Exception e) {
-            frame.getContentPane().removeAll();
-            frame.repaint();
+            removeAll();
+            repaint();
             game.createText(9, "No Servers Menu", "Left", "Top");
         }
         game.createText(1, "Back", "Middle", "Bottom");
@@ -117,9 +115,5 @@ public class Server {
         });
         PortThread.start();
         return result;
-    }
-
-    void refreshJFrame() {
-        frame = Frame.frame;
     }
 }

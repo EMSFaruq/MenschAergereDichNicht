@@ -10,15 +10,13 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.util.Random;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class Game {
+public class Game extends Frame {
 
     static Players players;
     static Dice dice;
     static Board bg = new Board();
-    JFrame frame = Frame.frame;
     static JLabel[] IconLabel = new JLabel[99];
     static JLabel[] TextLabel = new JLabel[99];
     boolean LabelInfos = false;
@@ -54,7 +52,6 @@ public class Game {
         try {
             throw new Exception();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         System.out.println("Object nicht gefunden!");
@@ -122,9 +119,10 @@ public class Game {
                 // PADDDIIINNNNG MORRGEN MACHENNNNNN
                 // LERNE RUNDE BORDERRRRRRRSSSSSSSSS
 
-                RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(Frame.ratio(40),
-                        Frame.ratio(40),
-                        Frame.ratio(35), Frame.ratio(40), cornerRadius, cornerRadius);
+                // Ne Hab ich nicht gemacht auch net nach 3+ Monaten :/
+
+                RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(40, 40, 35, 40, cornerRadius,
+                        cornerRadius);
                 g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 g2d.draw(roundedRectangle);
                 g2d.dispose();
@@ -133,16 +131,15 @@ public class Game {
     }
 
     void createText(int ID, String Text, String PosX, String PosY) {
-        refreshJFrame();
 
         // Create first
-        Font CustomFont = new Font("Poor Richard", Font.PLAIN, Frame.ratio(100));
+        Font CustomFont = new Font("Poor Richard", Font.PLAIN, 100);
         // TextLabel[ID] = createRoundedBorderLabel(Text, 16, 50);
         TextLabel[ID] = new JLabel();
         TextLabel[ID].setFont(CustomFont);
         TextLabel[ID].setHorizontalAlignment(JLabel.CENTER);
         TextLabel[ID].setVerticalAlignment(JLabel.CENTER);
-        TextLabel[ID].setSize(Frame.ratio(250), Frame.ratio(125));
+        TextLabel[ID].setSize(250, 125);
 
         if (LabelInfos) {
             System.out.println("ID: " + ID + " TextSize: " + TextLabel[ID].getFont().getSize());
@@ -157,7 +154,7 @@ public class Game {
         } catch (Exception e) {
             StringToPos(TextLabel, ID, PosX, PosY);
         }
-        frame.add(TextLabel[ID]);
+        add(TextLabel[ID]);
     }
 
     void create(int ID, ImageIcon icon, String PosX, String PosY) {
@@ -166,7 +163,7 @@ public class Game {
         // Auto Ratio if Undecorated or not :D
         icon = new ImageIcon(icon.getImage().getScaledInstance(
                 icon.getIconWidth(),
-                Frame.ratio(icon.getIconHeight()),
+                icon.getIconHeight(),
                 Image.SCALE_DEFAULT));
 
         IconLabel[ID].setSize(icon.getIconWidth(), icon.getIconHeight());
@@ -189,8 +186,8 @@ public class Game {
                         Menus menus = new Menus();
 
                         if (ID == 1 || ID == 2) {
-                            frame.getContentPane().removeAll();
-                            frame.repaint();
+                            removeAll();
+                            repaint();
                             menus.Buttons();
                         }
                         if (ID == 7) {
@@ -205,11 +202,7 @@ public class Game {
             }
         }
 
-        frame.add(IconLabel[ID]);
-    }
-
-    void refreshJFrame() {
-        frame = Frame.frame;
+        add(IconLabel[ID]);
     }
 
     void StringToPos(JLabel[] label, int ID, String PosX, String PosY) {
@@ -219,11 +212,11 @@ public class Game {
                 break;
 
             case "Right":
-                label[ID].setLocation(frame.getWidth() - label[ID].getWidth(), (int) label[ID].getY());
+                label[ID].setLocation(getWidth() - label[ID].getWidth(), (int) label[ID].getY());
                 break;
 
             case "Middle":
-                label[ID].setLocation(frame.getWidth() / 2 - label[ID].getWidth() / 2, (int) label[ID].getY());
+                label[ID].setLocation(getWidth() / 2 - label[ID].getWidth() / 2, (int) label[ID].getY());
                 break;
 
             default:
@@ -238,15 +231,15 @@ public class Game {
 
             case "Bottom":
                 label[ID].setLocation((int) label[ID].getX(),
-                        frame.getHeight() - label[ID].getHeight() - label[ID].getHeight());
+                        getHeight() - label[ID].getHeight() - label[ID].getHeight());
                 break;
 
             case "Middle":
-                label[ID].setLocation((int) label[ID].getX(), frame.getHeight() / 2);
+                label[ID].setLocation((int) label[ID].getX(), getHeight() / 2);
                 break;
 
             case "Preview":
-                label[ID].setLocation(label[ID].getX(), frame.getHeight() / 4);
+                label[ID].setLocation(label[ID].getX(), getHeight() / 4);
                 break;
 
             default:
