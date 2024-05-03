@@ -8,7 +8,7 @@ public class Board {
     JPanel frame = new Frame();
 
     public static void main(String[] args) {
-        new Frame();
+        new Frame().Init();
     }
 
     public void createBackground() {

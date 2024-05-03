@@ -14,7 +14,7 @@ public class Dice {
     JLabel dice = Game.IconLabel[CubeNr];
 
     public static void main(String[] args) {
-        new Frame();
+        new Frame().Init();
     }
 
     void createDice() {

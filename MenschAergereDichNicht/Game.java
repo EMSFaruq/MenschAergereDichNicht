@@ -22,7 +22,7 @@ public class Game extends Frame {
     boolean LabelInfos = false;
 
     public static void main(String[] args) {
-        new Frame();
+        new Frame().Init();
     }
 
     public void createGame() {

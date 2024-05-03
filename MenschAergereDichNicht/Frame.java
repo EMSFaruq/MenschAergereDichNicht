@@ -27,7 +27,7 @@ public class Frame extends JPanel {
     GraphicsEnvironment ge;
     GraphicsDevice[] gd;
     GraphicsDevice device;
-    static int output = 2;
+    static int output = 0;
 
     // Display Size
     GraphicsConfiguration screenConfiguration;
@@ -63,7 +63,8 @@ public class Frame extends JPanel {
         setPanel();
         drawIconImage();
         Menus m = new Menus();
-        m.Buttons();
+        // m.Buttons();
+        m.test();
     }
 
     void refreshVariables() {
@@ -117,6 +118,7 @@ public class Frame extends JPanel {
     void setPanel() {
         setSize(panelWidth, panelHeight);
         setLocation(panelX, panelY);
+        setBackground(Color.black);
     }
 
     void drawIconImage() {
@@ -127,6 +129,5 @@ public class Frame extends JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        refreshVariables();
     }
 }

@@ -19,7 +19,7 @@ public class Players extends Frame {
     String[] Teams = new String[Playerlabel.length / TeamSize];
 
     public static void main(String[] args) {
-        new Frame();
+        new Frame().Init();
     }
 
     public void Player() {

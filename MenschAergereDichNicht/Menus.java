@@ -1,13 +1,16 @@
 package MenschAergereDichNicht;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class Menus extends Frame {
+public class Menus {
 
+    JPanel panel;
     static int PosX;
     static int PosY;
     static String CurrentButton;
@@ -21,7 +24,11 @@ public class Menus extends Frame {
     String Menu;
 
     public static void main(String[] args) {
-        new Frame();
+        new Frame().Init();
+    }
+
+    JPanel getPanel() {
+        return panel;
     }
 
     void startMenu() {
@@ -29,9 +36,29 @@ public class Menus extends Frame {
         game.create(5, img, "0", "0");
     }
 
+    void test() {
+        panel = getPanel();
+        JLabel test = new JLabel();
+        test.setLocation(50, 100);
+        test.setSize(500, 250);
+        test.setIcon(new ImageIcon(new ImageIcon("MenschAergereDichNicht\\Sprites\\Board\\Board.png").getImage()
+                .getScaledInstance(500, 250, Image.SCALE_SMOOTH)));
+        panel.add(test);
+
+        try {
+            Thread.sleep(5000);
+            panel.setSize(200, 300);
+            panel.setBackground(Color.white);
+            panel.repaint();
+            System.out.println("Resized");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     void Buttons() {
-        int MiddleX = getWidth() / 2;
-        int MiddleY = getHeight() / 2 + getHeight() / 4;
+        int MiddleX = panel.getWidth() / 2;
+        int MiddleY = panel.getHeight() / 2 + panel.getHeight() / 4;
         int Abstand = 25;
 
         JLabel[] Button = new JLabel[4 + 1];
@@ -68,9 +95,7 @@ public class Menus extends Frame {
             Button[i] = new JLabel(img);
             Button[i].setSize(img.getIconWidth(), img.getIconHeight());
             Button[i].setLocation(PosX, PosY);
-            Button[i].setIcon(img);
-            System.out.println(Button[i].getLocation());
-            add(Button[i]);
+            panel.add(Button[i]);
 
             Button[i].addMouseListener(new MouseAdapter() {
 
@@ -78,8 +103,8 @@ public class Menus extends Frame {
                 public void mouseClicked(MouseEvent e) {
                     switch (Game.getObject(Button, (JLabel) e.getSource())) {
                         case 1:
-                            removeAll();
-                            repaint();
+                            panel.removeAll();
+                            panel.repaint();
                             game.createPlayers();
                             game.createCube();
                             game.createGame();
@@ -95,7 +120,7 @@ public class Menus extends Frame {
 
                             break;
                         case 4:
-                            frame.dispose();
+                            Frame.frame.dispose();
                             break;
 
                         default:
@@ -121,15 +146,15 @@ public class Menus extends Frame {
                 EscImg = new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\EscMenu(MP).png");
             }
             if (Menu == "Open") {
-                removeAll();
-                repaint();
+                panel.removeAll();
+                panel.repaint();
                 game.create(2, EscImg, "Left", "Top");
 
             }
 
             if (Menu == "Close") {
-                removeAll();
-                repaint();
+                panel.removeAll();
+                panel.repaint();
                 game.refreshAll();
                 game.wait(50);
             }

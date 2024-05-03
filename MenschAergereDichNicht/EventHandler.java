@@ -16,7 +16,7 @@ public class EventHandler extends Frame implements KeyListener {
     boolean resize;
 
     public static void main(String[] args) {
-        new Frame();
+        new Frame().Init();
     }
 
     @Override

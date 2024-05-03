@@ -24,7 +24,7 @@ public class Server extends Frame {
     static InetSocketAddress sockaddr;
 
     public static void main(String[] args) {
-        new Frame();
+        new Frame().Init();
         // createServer();
 
     }
