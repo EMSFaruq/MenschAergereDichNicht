@@ -8,9 +8,11 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public class EventHandler extends Frame implements KeyListener {
+public class EventHandler extends JPanel implements KeyListener {
 
+    JFrame frame = Frame.frame;
     Game game = new Game();
     Menus menus = new Menus();
     boolean resize;

@@ -3,9 +3,7 @@ package MenschAergereDichNicht;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public class Board {
-
-    JPanel frame = new Frame();
+public class Board extends JPanel {
 
     public static void main(String[] args) {
         new Frame().Init();

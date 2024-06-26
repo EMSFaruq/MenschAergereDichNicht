@@ -4,11 +4,9 @@ package MenschAergereDichNicht;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -18,16 +16,16 @@ import java.awt.Rectangle;
 /**
  * Frame
  */
-public class Frame extends JPanel {
+public class Frame {
 
     // Frame Variables
     static JFrame frame;
-
+    boolean resizeable = false;
     // Display Variables
     GraphicsEnvironment ge;
     GraphicsDevice[] gd;
     GraphicsDevice device;
-    static int output = 0;
+    static int output = 1;
 
     // Display Size
     GraphicsConfiguration screenConfiguration;
@@ -60,10 +58,13 @@ public class Frame extends JPanel {
     public void Init() {
         refreshVariables();
         setFrame();
-        setPanel();
         drawIconImage();
+
+        // Add Panels
         Menus m = new Menus();
-        // m.Buttons();
+        frame.add(m);
+        m.setPanel();
+        m.Buttons();
         m.test();
     }
 
@@ -110,15 +111,6 @@ public class Frame extends JPanel {
         // Frame Design
         frame.getContentPane().setBackground(new Color(43, 43, 43));
         frame.setVisible(true);
-
-        // Adding Game Panel
-        frame.add(this);
-    }
-
-    void setPanel() {
-        setSize(panelWidth, panelHeight);
-        setLocation(panelX, panelY);
-        setBackground(Color.black);
     }
 
     void drawIconImage() {
@@ -126,8 +118,4 @@ public class Frame extends JPanel {
         frame.setIconImage(icon.getImage());
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-    }
 }

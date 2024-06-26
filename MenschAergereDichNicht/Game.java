@@ -11,8 +11,9 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class Game extends Frame {
+public class Game extends JPanel {
 
     static Players players;
     static Dice dice;

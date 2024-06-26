@@ -5,12 +5,12 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Menus {
+public class Menus extends JPanel {
 
-    JPanel panel;
     static int PosX;
     static int PosY;
     static String CurrentButton;
@@ -27,29 +27,31 @@ public class Menus {
         new Frame().Init();
     }
 
-    JPanel getPanel() {
-        return panel;
+    void setPanel() {
+        JFrame frame = Frame.frame;
+        setSize(frame.getWidth(), frame.getHeight());
+        setLocation(0, 0);
+        setOpaque(true);
     }
 
     void startMenu() {
-        img = new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\Mainmenu.png");
+        img = new ImageIcon("Sprites/Menu/Mainmenu.png");
         game.create(5, img, "0", "0");
     }
 
     void test() {
-        panel = getPanel();
         JLabel test = new JLabel();
         test.setLocation(50, 100);
         test.setSize(500, 250);
         test.setIcon(new ImageIcon(new ImageIcon("MenschAergereDichNicht\\Sprites\\Board\\Board.png").getImage()
                 .getScaledInstance(500, 250, Image.SCALE_SMOOTH)));
-        panel.add(test);
+        add(test);
 
         try {
             Thread.sleep(5000);
-            panel.setSize(200, 300);
-            panel.setBackground(Color.white);
-            panel.repaint();
+            setSize(200, 300);
+            setBackground(Color.white);
+            repaint();
             System.out.println("Resized");
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,8 +59,8 @@ public class Menus {
     }
 
     void Buttons() {
-        int MiddleX = panel.getWidth() / 2;
-        int MiddleY = panel.getHeight() / 2 + panel.getHeight() / 4;
+        int MiddleX = getWidth() / 2;
+        int MiddleY = getHeight() / 2 + getHeight() / 4;
         int Abstand = 25;
 
         JLabel[] Button = new JLabel[4 + 1];
@@ -95,7 +97,7 @@ public class Menus {
             Button[i] = new JLabel(img);
             Button[i].setSize(img.getIconWidth(), img.getIconHeight());
             Button[i].setLocation(PosX, PosY);
-            panel.add(Button[i]);
+            add(Button[i]);
 
             Button[i].addMouseListener(new MouseAdapter() {
 
@@ -103,8 +105,8 @@ public class Menus {
                 public void mouseClicked(MouseEvent e) {
                     switch (Game.getObject(Button, (JLabel) e.getSource())) {
                         case 1:
-                            panel.removeAll();
-                            panel.repaint();
+                            removeAll();
+                            repaint();
                             game.createPlayers();
                             game.createCube();
                             game.createGame();
@@ -146,15 +148,15 @@ public class Menus {
                 EscImg = new ImageIcon("MenschAergereDichNicht\\Sprites\\Menu\\EscMenu(MP).png");
             }
             if (Menu == "Open") {
-                panel.removeAll();
-                panel.repaint();
+                removeAll();
+                repaint();
                 game.create(2, EscImg, "Left", "Top");
 
             }
 
             if (Menu == "Close") {
-                panel.removeAll();
-                panel.repaint();
+                removeAll();
+                repaint();
                 game.refreshAll();
                 game.wait(50);
             }

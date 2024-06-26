@@ -5,8 +5,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
-public class Players extends Frame {
+public class Players extends JPanel {
 
     static int[][] Felder = new int[48 + 1][2];
     static int PersonalTeam = 0;

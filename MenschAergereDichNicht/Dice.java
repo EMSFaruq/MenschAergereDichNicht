@@ -6,9 +6,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Dice {
+public class Dice extends JPanel {
     int CubeNr = 7;
-    JPanel frame = new Frame();
     Game game = new Game();
     ImageIcon icon;
     JLabel dice = Game.IconLabel[CubeNr];
@@ -18,7 +17,6 @@ public class Dice {
     }
 
     void createDice() {
-        refreshJFrame();
         String File = "WaitDice.png";
         game.create(7, getIcon(File), "Middle", "Middle");
 
@@ -47,12 +45,8 @@ public class Dice {
 
     }
 
-    public void refreshJFrame() {
-        frame = new Frame();
-    }
-
     public ImageIcon getIcon(String DataName) {
-        icon = new ImageIcon("MenschAergereDichNicht\\Sprites\\Dice\\" + DataName);
+        icon = new ImageIcon("MenschAergereDichNicht/Sprites/Dice/" + DataName);
         return icon;
     }
 

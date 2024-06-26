@@ -9,9 +9,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import java.awt.Font;
 
-public class Server extends Frame {
+public class Server extends JPanel {
 
     Game game = new Game();
     String LocalIP;
