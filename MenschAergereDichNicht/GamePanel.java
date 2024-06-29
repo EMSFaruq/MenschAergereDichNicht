@@ -160,7 +160,20 @@ public class GamePanel extends JPanel {
     }
 
     void localMenu() {
+        removeAll();
+        setBackground(new Color(229, 221, 144));
+        JLabel back = create(250, 125, "Back", "Poor Richard", Font.BOLD, 75, 5);
+        if (!isMouseListenerAdded(back)) {
+            back.setLocation(getWidth() / 2 - back.getWidth() / 2, getHeight() / 5 * 4 - back.getHeight() / 2);
+            back.addMouseListener(new MouseAdapter() {
 
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    setMenu("Main");
+                }
+            });
+        }
+        add(back);
     }
 
     void mpMenu() {
@@ -181,7 +194,20 @@ public class GamePanel extends JPanel {
     }
 
     void settingsMenu() {
+        removeAll();
+        setBackground(new Color(229, 221, 144));
+        JLabel back = create(250, 125, "Back", "Poor Richard", Font.BOLD, 75, 5);
+        if (!isMouseListenerAdded(back)) {
+            back.setLocation(getWidth() / 2 - back.getWidth() / 2, getHeight() / 5 * 4 - back.getHeight() / 2);
+            back.addMouseListener(new MouseAdapter() {
 
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    setMenu("Main");
+                }
+            });
+        }
+        add(back);
     }
 
     int getObjectInIndex(Object compare, Object[] objects) {

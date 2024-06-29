@@ -1,5 +1,6 @@
 package MenschAergereDichNicht;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import java.awt.Dimension;
@@ -26,6 +27,7 @@ public class Frame {
         frame.setSize(getScreenSize());
         frame.setLocation(getScreenPosition());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setIconImage(new ImageIcon("MenschAergereDichNicht\\Assets\\Board\\Icon.png").getImage());
         frame.setVisible(true);
     }
 
