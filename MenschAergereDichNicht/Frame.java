@@ -21,10 +21,13 @@ public class Frame {
 
     static JFrame frame;
 
+    boolean resizable = false;
+
     void createFrame() {
         frame = new JFrame("Mensch Aergere Dich Nicht | By MrByte");
         frame.setLayout(null);
         frame.setSize(getScreenSize());
+        frame.setResizable(resizable);
         frame.setLocation(getScreenPosition());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(new ImageIcon("MenschAergereDichNicht\\Assets\\Board\\Icon.png").getImage());

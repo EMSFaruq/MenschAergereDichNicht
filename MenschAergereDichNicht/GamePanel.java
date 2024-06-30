@@ -33,7 +33,6 @@ public class GamePanel extends JPanel {
         setSize(frame.getWidth(), frame.getHeight());
         setLocation(0, 0);
         setLayout(null);
-        System.out.println("Panel set to: " + getWidth() + " " + getHeight());
     }
 
     JLabel[] button = new JLabel[4];
@@ -60,39 +59,40 @@ public class GamePanel extends JPanel {
             int buttonHeight = getHeight() / 3 * 2;
             int differenz = 15;
             String text = "";
+            int locX = 0;
+            int locY = 0;
             int width = 250;
             int height = 125;
+            int roundness = 90;
             int fontsize = 50;
             int stroke = 5;
 
             if (i == 0) {
                 text = "Local";
                 fontsize = 75;
-                button[i] = create(width, height, text, "Poor Richard", Font.BOLD, fontsize, stroke);
-                button[i].setLocation(getWidth() / 2 - button[i].getWidth() - differenz,
-                        buttonHeight - button[i].getHeight() / 2 - differenz);
+                locX = getWidth() / 2 - button[i].getWidth() - differenz;
+                locY = buttonHeight - button[i].getHeight() / 2 - differenz;
             }
             if (i == 1) {
                 text = "MP";
                 fontsize = 75;
-                button[i] = create(width, height, text, "Poor Richard", Font.BOLD, fontsize, stroke);
-                button[i].setLocation(getWidth() / 2 + differenz,
-                        buttonHeight - button[i].getHeight() / 2 - differenz);
+                locX = getWidth() / 2 + differenz;
+                locY = buttonHeight - button[i].getHeight() / 2 - differenz;
             }
             if (i == 2) {
                 text = "Settings";
                 fontsize = 60;
-                button[i] = create(width, height, text, "Poor Richard", Font.BOLD, fontsize, stroke);
-                button[i].setLocation(getWidth() / 2 - button[i].getWidth() - differenz,
-                        buttonHeight + button[i].getHeight() / 2 + differenz);
+                locX = getWidth() / 2 - button[i].getWidth() - differenz;
+                locY = buttonHeight + button[i].getHeight() / 2 + differenz;
             }
             if (i == 3) {
                 text = "Exit";
                 fontsize = 75;
-                button[i] = create(width, height, text, "Poor Richard", Font.BOLD, fontsize, stroke);
-                button[i].setLocation(getWidth() / 2 + differenz,
-                        buttonHeight + button[i].getHeight() / 2 + differenz);
+                locX = getWidth() / 2 + differenz;
+                locY = buttonHeight + button[i].getHeight() / 2 + differenz;
             }
+            button[i] = create(width, height, text, "Poor Richard", Font.BOLD, fontsize, stroke, roundness);
+            button[i].setLocation(locX, locY);
 
             if (!isMouseListenerAdded(button[i])) {
                 int currentI = i;
@@ -100,7 +100,6 @@ public class GamePanel extends JPanel {
                     @Override
                     public void mousePressed(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON1) {
-                            System.out.println("Click");
                             if (button[currentI] == button[0]) {
                                 setMenu("Local");
                             }
@@ -122,27 +121,34 @@ public class GamePanel extends JPanel {
 
     }
 
-    JLabel create(int width, int height, String text, String font, int style, int fontsize, int strokesize) {
-        BufferedImage image = new BufferedImage(250, 125, BufferedImage.TYPE_INT_ARGB);
+    JLabel create(int width, int height, String text, String font, int style, int fontsize, int strokesize, int round) {
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = (Graphics2D) image.getGraphics();
-        int stroke = 3;
-        g2d.setStroke(new BasicStroke(stroke));
+        if (strokesize > 0) {
+            // Box and BorderLine
+            g2d.setStroke(new BasicStroke(strokesize));
+            g2d.setColor(Color.BLACK);
+            g2d.drawRoundRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize, round, round);
+            g2d.setColor(new Color(229, 221, 144));
+            g2d.fillRoundRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize, round, round);
+        }
         g2d.setColor(new Color(229, 221, 144));
-        g2d.fillRect(stroke / 2, stroke / 2, 250 - stroke, 125 - stroke);
-        g2d.setColor(Color.BLACK);
-        g2d.drawRect(stroke / 2, stroke / 2, 250 - stroke, 125 - stroke);
+        g2d.fillRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize);
+
+        // Text
+        g2d.setColor(Color.black);
         g2d.setFont(new Font(font, style, fontsize));
         int textWidth = g2d.getFontMetrics().stringWidth(text);
         int textHeight = g2d.getFontMetrics().getAscent();
-        int textX = (250 - textWidth) / 2;
-        int textY = (125 + textHeight) / 2 - 10;
+        int textX = (width - textWidth) / 2;
+        int textY = (height + textHeight) / 2 - 10;
         g2d.drawString(text, textX, textY);
         g2d.dispose();
 
         // Button
         ImageIcon icon = new ImageIcon(image);
         JLabel label = new JLabel();
-        label.setSize(250, 125);
+        label.setSize(width, height);
         label.setIcon(icon);
         label.setForeground(Color.BLACK);
         label.setBackground(new Color(229, 221, 144));
@@ -150,6 +156,7 @@ public class GamePanel extends JPanel {
         return label;
     }
 
+    // Only thing Ai Generated cuz im bad. jk just had no clue
     public static boolean isMouseListenerAdded(JLabel label) {
         for (MouseListener listener : label.getMouseListeners()) {
             if (listener instanceof MouseAdapter) {
@@ -162,41 +169,37 @@ public class GamePanel extends JPanel {
     void localMenu() {
         removeAll();
         setBackground(new Color(229, 221, 144));
-        JLabel back = create(250, 125, "Back", "Poor Richard", Font.BOLD, 75, 5);
-        if (!isMouseListenerAdded(back)) {
-            back.setLocation(getWidth() / 2 - back.getWidth() / 2, getHeight() / 5 * 4 - back.getHeight() / 2);
-            back.addMouseListener(new MouseAdapter() {
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    setMenu("Main");
-                }
-            });
-        }
+        JLabel back = backButton();
         add(back);
     }
 
     void mpMenu() {
         removeAll();
         setBackground(new Color(229, 221, 144));
-        JLabel back = create(250, 125, "Back", "Poor Richard", Font.BOLD, 75, 5);
-        if (!isMouseListenerAdded(back)) {
-            back.setLocation(getWidth() / 2 - back.getWidth() / 2, getHeight() / 5 * 4 - back.getHeight() / 2);
-            back.addMouseListener(new MouseAdapter() {
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    setMenu("Main");
-                }
-            });
-        }
+        JLabel back = backButton();
         add(back);
+        JLabel MPTitle = create(750, 250, "Multiplayer", "Poor Richard", Font.BOLD, 125, 0, 10);
+        MPTitle.setLocation(center(MPTitle.getWidth(), getWidth()), 0);
+        add(MPTitle);
     }
 
     void settingsMenu() {
+
         removeAll();
         setBackground(new Color(229, 221, 144));
-        JLabel back = create(250, 125, "Back", "Poor Richard", Font.BOLD, 75, 5);
+        JLabel back = backButton();
+        add(back);
+    }
+
+    int center(int SizeOfObject, int centerOf) {
+        return centerOf / 2 - SizeOfObject / 2;
+    }
+
+    JLabel backButton() {
+        int ButtonWidth = 250;
+        int ButtonHeight = 125;
+
+        JLabel back = create(ButtonWidth, ButtonHeight, "Back", "Poor Richard", Font.BOLD, 75, 5, 10);
         if (!isMouseListenerAdded(back)) {
             back.setLocation(getWidth() / 2 - back.getWidth() / 2, getHeight() / 5 * 4 - back.getHeight() / 2);
             back.addMouseListener(new MouseAdapter() {
@@ -207,7 +210,7 @@ public class GamePanel extends JPanel {
                 }
             });
         }
-        add(back);
+        return back;
     }
 
     int getObjectInIndex(Object compare, Object[] objects) {
