@@ -63,7 +63,7 @@ public class GamePanel extends JPanel {
             int locY = 0;
             int width = 250;
             int height = 125;
-            int roundness = 90;
+            int roundness = 45;
             int fontsize = 50;
             int stroke = 5;
 
@@ -91,7 +91,7 @@ public class GamePanel extends JPanel {
                 locX = getWidth() / 2 + differenz;
                 locY = buttonHeight + button[i].getHeight() / 2 + differenz;
             }
-            button[i] = create(width, height, text, "Poor Richard", Font.BOLD, fontsize, stroke, roundness);
+            button[i] = create(width, height, text, new Font("Poor Richard", Font.BOLD, fontsize), stroke, roundness);
             button[i].setLocation(locX, locY);
 
             if (!isMouseListenerAdded(button[i])) {
@@ -121,9 +121,11 @@ public class GamePanel extends JPanel {
 
     }
 
-    JLabel create(int width, int height, String text, String font, int style, int fontsize, int strokesize, int round) {
+    JLabel create(int width, int height, String text, Font font, int strokesize, int round) {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = (Graphics2D) image.getGraphics();
+
+        // g2d.drawRoundRect(25, 25, 25, 25, round, round);
         if (strokesize > 0) {
             // Box and BorderLine
             g2d.setStroke(new BasicStroke(strokesize));
@@ -131,13 +133,14 @@ public class GamePanel extends JPanel {
             g2d.drawRoundRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize, round, round);
             g2d.setColor(new Color(229, 221, 144));
             g2d.fillRoundRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize, round, round);
+        } else {
+            g2d.setColor(new Color(229, 221, 144));
+            g2d.fillRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize);
         }
-        g2d.setColor(new Color(229, 221, 144));
-        g2d.fillRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize);
 
         // Text
         g2d.setColor(Color.black);
-        g2d.setFont(new Font(font, style, fontsize));
+        g2d.setFont(font);
         int textWidth = g2d.getFontMetrics().stringWidth(text);
         int textHeight = g2d.getFontMetrics().getAscent();
         int textX = (width - textWidth) / 2;
@@ -178,7 +181,7 @@ public class GamePanel extends JPanel {
         setBackground(new Color(229, 221, 144));
         JLabel back = backButton();
         add(back);
-        JLabel MPTitle = create(750, 250, "Multiplayer", "Poor Richard", Font.BOLD, 125, 0, 10);
+        JLabel MPTitle = create(750, 250, "Multiplayer", new Font("Poor Richard", Font.BOLD, 125), 0, 0);
         MPTitle.setLocation(center(MPTitle.getWidth(), getWidth()), 0);
         add(MPTitle);
     }
@@ -199,7 +202,7 @@ public class GamePanel extends JPanel {
         int ButtonWidth = 250;
         int ButtonHeight = 125;
 
-        JLabel back = create(ButtonWidth, ButtonHeight, "Back", "Poor Richard", Font.BOLD, 75, 5, 10);
+        JLabel back = create(ButtonWidth, ButtonHeight, "Back", new Font("Poor Richard", Font.BOLD, 75), 5, 45);
         if (!isMouseListenerAdded(back)) {
             back.setLocation(getWidth() / 2 - back.getWidth() / 2, getHeight() / 5 * 4 - back.getHeight() / 2);
             back.addMouseListener(new MouseAdapter() {
