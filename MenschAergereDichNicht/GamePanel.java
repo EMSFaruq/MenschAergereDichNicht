@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.net.Socket;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -44,8 +45,9 @@ public class GamePanel extends JPanel {
 
         for (int i = 0; i < button.length; i++) {
             JLabel Preview = new JLabel();
-            ImageIcon previewIcon = new ImageIcon("MenschAergereDichNicht\\Assets\\Board\\Board.png");
-            previewIcon = new ImageIcon((previewIcon).getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH));
+            ImageIcon previewIcon = new ImageIcon("MenschAergereDichNicht\\Assets\\Board\\Preview.png");
+            previewIcon = new ImageIcon((previewIcon).getImage().getScaledInstance(300,
+                    300, Image.SCALE_SMOOTH));
             Preview.setIcon(previewIcon);
             Preview.setSize(previewIcon.getIconWidth(), previewIcon.getIconHeight());
             Preview.setLocation(getWidth() / 2 - Preview.getWidth() / 2, getHeight() / 3 - Preview.getHeight() / 2);
@@ -54,7 +56,6 @@ public class GamePanel extends JPanel {
             if (button[i] == null) {
                 button[i] = new JLabel();
             }
-            add(button[i]);
 
             int buttonHeight = getHeight() / 3 * 2;
             int differenz = 15;
@@ -93,6 +94,7 @@ public class GamePanel extends JPanel {
             }
             button[i] = create(width, height, text, new Font("Poor Richard", Font.BOLD, fontsize), stroke, roundness);
             button[i].setLocation(locX, locY);
+            add(button[i]);
 
             if (!isMouseListenerAdded(button[i])) {
                 int currentI = i;
@@ -116,9 +118,7 @@ public class GamePanel extends JPanel {
                     }
                 });
             }
-            add(button[i]);
         }
-
     }
 
     JLabel create(int width, int height, String text, Font font, int strokesize, int round) {
@@ -160,7 +160,7 @@ public class GamePanel extends JPanel {
     }
 
     // Only thing Ai Generated cuz im bad. jk just had no clue
-    public static boolean isMouseListenerAdded(JLabel label) {
+    public boolean isMouseListenerAdded(JLabel label) {
         for (MouseListener listener : label.getMouseListeners()) {
             if (listener instanceof MouseAdapter) {
                 return true; // MouseAdapter (oder MouseListener) bereits hinzugefügt
@@ -176,14 +176,56 @@ public class GamePanel extends JPanel {
         add(back);
     }
 
+    static Socket client;
+    boolean searched;
+
     void mpMenu() {
+
         removeAll();
         setBackground(new Color(229, 221, 144));
+
+        // Backbutton
         JLabel back = backButton();
         add(back);
+
+        // Multiplayer Title
         JLabel MPTitle = create(750, 250, "Multiplayer", new Font("Poor Richard", Font.BOLD, 125), 0, 0);
         MPTitle.setLocation(center(MPTitle.getWidth(), getWidth()), 0);
         add(MPTitle);
+
+        // Try connect to Servers
+        int[] ports = new int[] {
+                1, 2, 3, 4, 5
+        };
+        if (!searched) {
+            for (int i = 1; i <= ports.length; i++) {
+                if (client == null) {
+                    tryConnect(i);
+                }
+            }
+        }
+        searched = true;
+        if (client == null) {
+            JLabel serverLabel = create(1250, 250, "No Servers Found!", new Font("Poor Richard", Font.BOLD, 125), 0, 0);
+            serverLabel.setLocation(
+                    center(serverLabel.getWidth(), getWidth()),
+                    center(serverLabel.getHeight(), getHeight()));
+            add(serverLabel);
+        }
+    }
+
+    void tryConnect(int port) {
+        try {
+            System.out.println("Try Connecting on Port: " + port + "!");
+            client = new Socket("localhost", port);
+            System.out.println("Connected to Server!");
+        } catch (Exception e) {
+            try {
+                System.out.println("Server is offline!");
+            } catch (Exception e1) {
+                System.out.println("Couldn't wait!");
+            }
+        }
     }
 
     void settingsMenu() {
@@ -209,6 +251,10 @@ public class GamePanel extends JPanel {
 
                 @Override
                 public void mousePressed(MouseEvent e) {
+                    if (Menu.equals("MP") && client != null) {
+                        client = null;
+                    }
+                    searched = false;
                     setMenu("Main");
                 }
             });
@@ -243,7 +289,6 @@ public class GamePanel extends JPanel {
         } else if ("Settings".equals(Menu)) {
             settingsMenu();
         }
-
         repaint();
     }
 }

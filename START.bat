@@ -1,0 +1,2 @@
+java StartServer.java
+pause
