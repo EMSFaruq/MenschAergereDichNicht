@@ -12,6 +12,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.net.Socket;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -44,12 +45,8 @@ public class GamePanel extends JPanel {
         setBackground(new Color(229, 221, 144));
 
         for (int i = 0; i < button.length; i++) {
-            JLabel Preview = new JLabel();
-            ImageIcon previewIcon = new ImageIcon("MenschAergereDichNicht\\Assets\\Board\\Preview.png");
-            previewIcon = new ImageIcon((previewIcon).getImage().getScaledInstance(300,
-                    300, Image.SCALE_SMOOTH));
-            Preview.setIcon(previewIcon);
-            Preview.setSize(previewIcon.getIconWidth(), previewIcon.getIconHeight());
+            JLabel Preview = create(0, 0, "", Color.black, new Color(229, 221, 144), null, 0, 0,
+                    new ImageIcon("MenschAergereDichNicht/Assets/Board/Preview.png"));
             Preview.setLocation(getWidth() / 2 - Preview.getWidth() / 2, getHeight() / 3 - Preview.getHeight() / 2);
             add(Preview);
 
@@ -92,13 +89,16 @@ public class GamePanel extends JPanel {
                 locX = getWidth() / 2 + differenz;
                 locY = buttonHeight + button[i].getHeight() / 2 + differenz;
             }
-            button[i] = create(width, height, text, new Font("Poor Richard", Font.BOLD, fontsize), stroke, roundness);
+            button[i] = create(width, height, text, Color.black, new Color(229, 221, 144),
+                    new Font("Poor Richard", Font.BOLD, fontsize), stroke, roundness,
+                    null);
             button[i].setLocation(locX, locY);
             add(button[i]);
 
             if (!isMouseListenerAdded(button[i])) {
                 int currentI = i;
                 button[i].addMouseListener(new MouseAdapter() {
+
                     @Override
                     public void mousePressed(MouseEvent e) {
                         if (e.getButton() == MouseEvent.BUTTON1) {
@@ -121,21 +121,41 @@ public class GamePanel extends JPanel {
         }
     }
 
-    JLabel create(int width, int height, String text, Font font, int strokesize, int round) {
+    JLabel create(int width, int height, String text, Color foreground, Color background, Font font, int strokesize,
+            int round, ImageIcon icon) {
+
+        if (icon != null) {
+
+            if (width == 0 || height == 0) {
+                width = icon.getIconWidth();
+                height = icon.getIconHeight();
+            } else {
+                icon = new ImageIcon(icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH));
+            }
+            round = 0;
+
+        }
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = (Graphics2D) image.getGraphics();
 
-        // g2d.drawRoundRect(25, 25, 25, 25, round, round);
+        if (icon != null) {
+            g2d.drawImage(icon.getImage(), 0, 0, null);
+        }
         if (strokesize > 0) {
             // Box and BorderLine
             g2d.setStroke(new BasicStroke(strokesize));
             g2d.setColor(Color.BLACK);
             g2d.drawRoundRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize, round, round);
-            g2d.setColor(new Color(229, 221, 144));
-            g2d.fillRoundRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize, round, round);
+            if (round > 0) {
+                g2d.setColor(new Color(229, 221, 144));
+                g2d.fillRoundRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize, round,
+                        round);
+            }
         } else {
-            g2d.setColor(new Color(229, 221, 144));
-            g2d.fillRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize);
+            if (icon == null) {
+                g2d.setColor(new Color(229, 221, 144));
+                g2d.fillRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize);
+            }
         }
 
         // Text
@@ -147,14 +167,14 @@ public class GamePanel extends JPanel {
         int textY = (height + textHeight) / 2 - 10;
         g2d.drawString(text, textX, textY);
         g2d.dispose();
+        icon = new ImageIcon(image);
 
         // Button
-        ImageIcon icon = new ImageIcon(image);
         JLabel label = new JLabel();
         label.setSize(width, height);
         label.setIcon(icon);
-        label.setForeground(Color.BLACK);
-        label.setBackground(new Color(229, 221, 144));
+        label.setForeground(foreground);
+        label.setBackground(background);
         label.setOpaque(true);
         return label;
     }
@@ -189,7 +209,9 @@ public class GamePanel extends JPanel {
         add(back);
 
         // Multiplayer Title
-        JLabel MPTitle = create(750, 250, "Multiplayer", new Font("Poor Richard", Font.BOLD, 125), 0, 0);
+        JLabel MPTitle = create(750, 250, "Multiplayer", Color.black, null, new Font("Poor Richard", Font.BOLD, 125), 0,
+                0,
+                null);
         MPTitle.setLocation(center(MPTitle.getWidth(), getWidth()), 0);
         add(MPTitle);
 
@@ -199,19 +221,48 @@ public class GamePanel extends JPanel {
         };
         if (!searched) {
             for (int i = 1; i <= ports.length; i++) {
-                if (client == null) {
-                    tryConnect(i);
-                }
+                tryConnect(i);
             }
         }
         searched = true;
         if (client == null) {
-            JLabel serverLabel = create(1250, 250, "No Servers Found!", new Font("Poor Richard", Font.BOLD, 125), 0, 0);
+            JLabel serverLabel = create(1250, 250, "No Servers Found!", Color.black, new Color(229, 221, 144),
+                    new Font("Poor Richard", Font.BOLD, 125), 0, 0,
+                    null);
             serverLabel.setLocation(
                     center(serverLabel.getWidth(), getWidth()),
                     center(serverLabel.getHeight(), getHeight()));
             add(serverLabel);
+
+            JLabel refresh = create(125, 125, "", Color.black, new Color(229, 221, 144), null, 5, 45,
+                    new ImageIcon("MenschAergereDichNicht/Assets/Menu/Refresh.png"));
+            refresh.setLocation(getWidth() / 6 * 5, center(refresh.getHeight(), getHeight()));
+            // System.out.println(refresh.getSize());
+            // System.out.println(refresh.getLocation(getLocation()));
+
+            refresh.addMouseListener(new MouseAdapter() {
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    if (e.getButton() == MouseEvent.BUTTON1) {
+                        for (int i = 0; i < ports.length; i++) {
+                            refresh.setIcon(
+                                    rotateIcon(new ImageIcon("MenschAergereDichNicht/Assets/Menu/Refresh.png"), 90));
+                            tryConnect(ports[i]);
+                        }
+                    }
+                }
+            });
+            add(refresh);
         }
+    }
+
+    ImageIcon rotateIcon(ImageIcon icon, double degree) {
+        BufferedImage image = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        g2d.drawImage(icon.getImage().getScaledInstance(125, 125, Image.SCALE_SMOOTH), 0, 0, null);
+        g2d.rotate(degree);
+        return new ImageIcon(image);
     }
 
     void tryConnect(int port) {
@@ -229,7 +280,6 @@ public class GamePanel extends JPanel {
     }
 
     void settingsMenu() {
-
         removeAll();
         setBackground(new Color(229, 221, 144));
         JLabel back = backButton();
@@ -244,18 +294,21 @@ public class GamePanel extends JPanel {
         int ButtonWidth = 250;
         int ButtonHeight = 125;
 
-        JLabel back = create(ButtonWidth, ButtonHeight, "Back", new Font("Poor Richard", Font.BOLD, 75), 5, 45);
+        JLabel back = create(ButtonWidth, ButtonHeight, "Back", Color.black, new Color(229, 221, 144),
+                new Font("Poor Richard", Font.BOLD, 75), 5, 45, null);
         if (!isMouseListenerAdded(back)) {
             back.setLocation(getWidth() / 2 - back.getWidth() / 2, getHeight() / 5 * 4 - back.getHeight() / 2);
             back.addMouseListener(new MouseAdapter() {
 
                 @Override
                 public void mousePressed(MouseEvent e) {
-                    if (Menu.equals("MP") && client != null) {
-                        client = null;
+                    if (e.getButton() == MouseEvent.BUTTON1) {
+                        if (Menu.equals("MP") && client != null) {
+                            client = null;
+                        }
+                        searched = false;
+                        setMenu("Main");
                     }
-                    searched = false;
-                    setMenu("Main");
                 }
             });
         }
@@ -282,13 +335,16 @@ public class GamePanel extends JPanel {
 
         if ("Main".equals(Menu)) {
             mainMenu();
+            repaint();
         } else if ("Local".equals(Menu)) {
             localMenu();
+            repaint();
         } else if ("MP".equals(Menu)) {
             mpMenu();
+            repaint();
         } else if ("Settings".equals(Menu)) {
             settingsMenu();
+            repaint();
         }
-        repaint();
     }
 }

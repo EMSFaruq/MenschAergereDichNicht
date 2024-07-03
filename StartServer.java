@@ -14,15 +14,12 @@ public class StartServer {
 
     void startServer(int port) {
         try {
-            ServerSocket socket = new ServerSocket(1);
-            System.out.println("Waiting for Connection on Port: " + port);
-            socket.accept();
-            System.out.println("Connected");
-            Scanner scanner = new Scanner(System.in);
-            scanner.nextLine();
-            scanner.close();
-            socket.close();
-            main(null);
+            ServerSocket socket = new ServerSocket(port);
+            while (true) {
+                System.out.println("Waiting for Connection on Port: " + port);
+                socket.accept();
+                System.out.println("Connected");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Failure while starting Server!");
