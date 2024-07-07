@@ -5,14 +5,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.net.Socket;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +23,9 @@ public class GamePanel extends JPanel {
 
     static String Menu;
     JFrame frame = Frame.frame;
+    Frame f = new Frame();
+    Color BackgroundColor = new Color(229, 221, 144);
+    Font DefaultFont = new Font("Poor Richard", Font.BOLD, 12);
 
     public static void main(String[] args) {
         Frame.main(args);
@@ -42,13 +46,12 @@ public class GamePanel extends JPanel {
     void mainMenu() {
         // Panel Design
         removeAll();
-        setBackground(new Color(229, 221, 144));
+        setBackground(BackgroundColor);
 
+        JLabel Preview = previewLabel();
+        Preview.setLocation(getWidth() / 2 - Preview.getWidth() / 2, getHeight() / 3 - Preview.getHeight() / 2);
+        add(Preview);
         for (int i = 0; i < button.length; i++) {
-            JLabel Preview = create(0, 0, "", Color.black, new Color(229, 221, 144), null, 0, 0,
-                    new ImageIcon("MenschAergereDichNicht/Assets/Board/Preview.png"));
-            Preview.setLocation(getWidth() / 2 - Preview.getWidth() / 2, getHeight() / 3 - Preview.getHeight() / 2);
-            add(Preview);
 
             if (button[i] == null) {
                 button[i] = new JLabel();
@@ -62,7 +65,7 @@ public class GamePanel extends JPanel {
             int width = 250;
             int height = 125;
             int roundness = 45;
-            int fontsize = 50;
+            float fontsize = 50;
             int stroke = 5;
 
             if (i == 0) {
@@ -89,8 +92,8 @@ public class GamePanel extends JPanel {
                 locX = getWidth() / 2 + differenz;
                 locY = buttonHeight + button[i].getHeight() / 2 + differenz;
             }
-            button[i] = create(width, height, text, Color.black, new Color(229, 221, 144),
-                    new Font("Poor Richard", Font.BOLD, fontsize), stroke, roundness,
+            button[i] = create(width, height, text, Color.black, BackgroundColor,
+                    DefaultFont.deriveFont(fontsize), stroke, roundness,
                     null);
             button[i].setLocation(locX, locY);
             add(button[i]);
@@ -105,6 +108,7 @@ public class GamePanel extends JPanel {
                             if (button[currentI] == button[0]) {
                                 setMenu("Local");
                             }
+
                             if (button[currentI] == button[1]) {
                                 setMenu("MP");
                             }
@@ -147,13 +151,13 @@ public class GamePanel extends JPanel {
             g2d.setColor(Color.BLACK);
             g2d.drawRoundRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize, round, round);
             if (round > 0) {
-                g2d.setColor(new Color(229, 221, 144));
+                g2d.setColor(BackgroundColor);
                 g2d.fillRoundRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize, round,
                         round);
             }
         } else {
             if (icon == null) {
-                g2d.setColor(new Color(229, 221, 144));
+                g2d.setColor(BackgroundColor);
                 g2d.fillRect(strokesize / 2, strokesize / 2, width - strokesize, height - strokesize);
             }
         }
@@ -161,10 +165,13 @@ public class GamePanel extends JPanel {
         // Text
         g2d.setColor(Color.black);
         g2d.setFont(font);
+
+        // Ai Generated
         int textWidth = g2d.getFontMetrics().stringWidth(text);
         int textHeight = g2d.getFontMetrics().getAscent();
         int textX = (width - textWidth) / 2;
         int textY = (height + textHeight) / 2 - 10;
+
         g2d.drawString(text, textX, textY);
         g2d.dispose();
         icon = new ImageIcon(image);
@@ -179,7 +186,7 @@ public class GamePanel extends JPanel {
         return label;
     }
 
-    // Only thing Ai Generated cuz im bad. jk just had no clue
+    // Only Method Ai Generated cuz im bad. jk just had no clue
     public boolean isMouseListenerAdded(JLabel label) {
         for (MouseListener listener : label.getMouseListeners()) {
             if (listener instanceof MouseAdapter) {
@@ -191,9 +198,13 @@ public class GamePanel extends JPanel {
 
     void localMenu() {
         removeAll();
-        setBackground(new Color(229, 221, 144));
-        JLabel back = backButton();
-        add(back);
+        setBackground(new Color(43, 43, 43));
+
+        // Board
+        JLabel board = create(0, 0, "", null, null, null, 0, 0,
+                new ImageIcon("MenschAergereDichNicht\\Assets\\Board\\Board.png"));
+        board.setLocation(center(board.getWidth(), getWidth()), 0);
+        add(board);
     }
 
     static Socket client;
@@ -202,14 +213,14 @@ public class GamePanel extends JPanel {
     void mpMenu() {
 
         removeAll();
-        setBackground(new Color(229, 221, 144));
+        setBackground(BackgroundColor);
 
         // Backbutton
         JLabel back = backButton();
         add(back);
 
         // Multiplayer Title
-        JLabel MPTitle = create(750, 250, "Multiplayer", Color.black, null, new Font("Poor Richard", Font.BOLD, 125), 0,
+        JLabel MPTitle = create(750, 250, "Multiplayer", Color.black, null, DefaultFont.deriveFont(125f), 0,
                 0,
                 null);
         MPTitle.setLocation(center(MPTitle.getWidth(), getWidth()), 0);
@@ -226,19 +237,17 @@ public class GamePanel extends JPanel {
         }
         searched = true;
         if (client == null) {
-            JLabel serverLabel = create(1250, 250, "No Servers Found!", Color.black, new Color(229, 221, 144),
-                    new Font("Poor Richard", Font.BOLD, 125), 0, 0,
+            JLabel serverLabel = create(1250, 250, "No Servers Found!", Color.black, BackgroundColor,
+                    DefaultFont.deriveFont(125f), 0, 0,
                     null);
             serverLabel.setLocation(
                     center(serverLabel.getWidth(), getWidth()),
                     center(serverLabel.getHeight(), getHeight()));
             add(serverLabel);
 
-            JLabel refresh = create(125, 125, "", Color.black, new Color(229, 221, 144), null, 5, 45,
+            JLabel refresh = create(125, 125, "", Color.black, BackgroundColor, null, 5, 45,
                     new ImageIcon("MenschAergereDichNicht/Assets/Menu/Refresh.png"));
             refresh.setLocation(getWidth() / 6 * 5, center(refresh.getHeight(), getHeight()));
-            // System.out.println(refresh.getSize());
-            // System.out.println(refresh.getLocation(getLocation()));
 
             refresh.addMouseListener(new MouseAdapter() {
 
@@ -281,7 +290,74 @@ public class GamePanel extends JPanel {
 
     void settingsMenu() {
         removeAll();
-        setBackground(new Color(229, 221, 144));
+        setBackground(BackgroundColor);
+
+        JLabel back = backButton();
+        add(back);
+
+        // Fullscreen Button
+        JLabel fullscreen;
+        if (frame.isUndecorated()) {
+            fullscreen = create(250, 125, "Window", Color.BLACK, BackgroundColor, DefaultFont.deriveFont(50f), 5,
+                    45, null);
+        } else {
+            fullscreen = create(250, 125, "Fullscreen", Color.BLACK, BackgroundColor,
+                    DefaultFont.deriveFont(50f),
+                    5, 45, null);
+        }
+        fullscreen.setLocation(getWidth() / 5 * 2 - fullscreen.getWidth(),
+                center(fullscreen.getHeight(), getHeight()));
+        fullscreen.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    frame.setVisible(false);
+                    frame.dispose();
+                    frame.setUndecorated(!frame.isUndecorated());
+                    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    frame.setVisible(true);
+                }
+            }
+        });
+        add(fullscreen);
+
+        // Monitor Button
+        JLabel monitor;
+        int nextScreen;
+        if (f.currentDeviceNumber() < f.getDevices().length - 1) {
+            nextScreen = f.currentDeviceNumber() + 1;
+        } else {
+            nextScreen = 0;
+        }
+        monitor = create(250, 125, "Device: " + nextScreen, Color.BLACK, BackgroundColor, DefaultFont.deriveFont(50f),
+                5,
+                45, null);
+        monitor.setLocation(getWidth() / 5 * 3,
+                center(monitor.getHeight(), getHeight()));
+        monitor.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    GraphicsDevice[] devices = f.getDevices();
+                    frame.setVisible(false);
+                    frame.dispose();
+                    frame.setLocation(devices[nextScreen].getDefaultConfiguration().getBounds().getLocation());
+                    frame.setVisible(true);
+                }
+            }
+        });
+        add(monitor);
+
+    }
+
+    void pauseMenu() {
+        removeAll();
+        setBackground(BackgroundColor);
+
+        JLabel Preview = previewLabel();
+        Preview.setLocation(getWidth() / 2 - Preview.getWidth() / 2, getHeight() / 3 - Preview.getHeight() / 2);
+        add(Preview);
+
         JLabel back = backButton();
         add(back);
     }
@@ -294,8 +370,8 @@ public class GamePanel extends JPanel {
         int ButtonWidth = 250;
         int ButtonHeight = 125;
 
-        JLabel back = create(ButtonWidth, ButtonHeight, "Back", Color.black, new Color(229, 221, 144),
-                new Font("Poor Richard", Font.BOLD, 75), 5, 45, null);
+        JLabel back = create(ButtonWidth, ButtonHeight, "Back", Color.black, BackgroundColor,
+                DefaultFont.deriveFont(75f), 5, 45, null);
         if (!isMouseListenerAdded(back)) {
             back.setLocation(getWidth() / 2 - back.getWidth() / 2, getHeight() / 5 * 4 - back.getHeight() / 2);
             back.addMouseListener(new MouseAdapter() {
@@ -313,6 +389,11 @@ public class GamePanel extends JPanel {
             });
         }
         return back;
+    }
+
+    JLabel previewLabel() {
+        return create(0, 0, "", Color.black, BackgroundColor, null, 0, 0,
+                new ImageIcon("MenschAergereDichNicht/Assets/Board/Preview.png"));
     }
 
     int getObjectInIndex(Object compare, Object[] objects) {
@@ -333,17 +414,20 @@ public class GamePanel extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
 
-        if ("Main".equals(Menu)) {
+        if (Menu.equalsIgnoreCase("MAIN")) {
             mainMenu();
             repaint();
-        } else if ("Local".equals(Menu)) {
+        } else if (Menu.equalsIgnoreCase("LOCAL")) {
             localMenu();
             repaint();
-        } else if ("MP".equals(Menu)) {
+        } else if (Menu.equalsIgnoreCase("MP")) {
             mpMenu();
             repaint();
-        } else if ("Settings".equals(Menu)) {
+        } else if (Menu.equalsIgnoreCase("SETTINGS")) {
             settingsMenu();
+            repaint();
+        } else if (Menu.equalsIgnoreCase("PAUSE")) {
+            pauseMenu();
             repaint();
         }
     }
