@@ -58,6 +58,13 @@ public class Frame {
                     }
                 }
             }
+            if (e.getKeyCode() == KeyEvent.VK_F11) {
+                frame.setVisible(false);
+                frame.dispose();
+                frame.setUndecorated(!frame.isUndecorated());
+                frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                frame.setVisible(true);
+            }
         };
     };
 
