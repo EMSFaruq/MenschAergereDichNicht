@@ -43,10 +43,12 @@ public class Frame {
     static String currentMode;
 
     KeyAdapter keyAdapter = new KeyAdapter() {
+
         public void keyPressed(KeyEvent e) {
             if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                GamePanel gp = new GamePanel();
                 String menu = GamePanel.Menu;
+                GamePanel gp = new GamePanel();
+
                 if (menu.equals("Local") || menu.equals("MP")) {
                     currentMode = menu;
                 }
@@ -65,7 +67,10 @@ public class Frame {
                 frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
                 frame.setVisible(true);
             }
-        };
+            if (e.getKeyCode() == KeyEvent.VK_F12) {
+
+            }
+        }
     };
 
     GraphicsEnvironment getGraphicsEnviroment() {

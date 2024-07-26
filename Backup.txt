@@ -1,3 +1,4 @@
+
 package MenschAergereDichNicht;
 
 import java.awt.BasicStroke;
@@ -15,7 +16,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.net.Socket;
-import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -231,41 +231,16 @@ public class GamePanel extends JPanel {
 
     void setPlayers() {
         for (int i = 0; i < player.length; i++) {
-            if (player[i] == null) {
-                ImageIcon playerIcon = new ImageIcon(
-                        "MenschAergereDichNicht/Assets/Characters/Player" + ((i / 4) + 1) + ".png");
-                player[i] = create(0, 0, "", null, null, null, 0, 0, playerIcon);
-                int currentI = i;
-                player[i].addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        int team = 0;
-                        if (currentI < 4) {
-                            team = 0;
-                        } else if (currentI < 8) {
-                            team = 1;
-
-                        } else if (currentI < 12) {
-                            team = 2;
-                        } else if (currentI < 16) {
-                            team = 3;
-                        }
-                        handleMovement(player[currentI], 1, team);
-                    }
-                });
-            }
+            ImageIcon playerIcon = new ImageIcon(
+                    "MenschAergereDichNicht/Assets/Characters/Player" + ((i / 4) + 1) + ".png");
+            player[i] = create(0, 0, "", null, null, null, 0, 0, playerIcon);
             add(player[i]);
         }
     }
 
-    static boolean sorted = false;
-
     void setLocal() {
-        if (!sorted) {
-            for (int i = 0; i < player.length / 4; i++) {
-                SortTeam(i);
-            }
-            sorted = true;
+        for (int i = 0; i < player.length / 4; i++) {
+            SortTeam(i);
         }
     }
 
@@ -288,20 +263,19 @@ public class GamePanel extends JPanel {
 
     }
 
-    void handleMovement(JLabel player, int steps, int team) {
+    void handleMovement(JLabel player, int DestField) {
         int currentField = 0;
         for (int i = 0; i < field.length; i++) {
-            getStartPoint(team);
             if (player.getLocation() == new Point(field[i][0], field[i][1])) {
                 currentField = i;
                 break;
             } else {
-                player.setLocation(0, 0);
+                player.setLocation(null);
                 currentField = 0;
             }
         }
 
-        int newField = currentField + steps;
+        int newField = currentField + 1;
         Point newLoc = new Point(field[newField][0], field[newField][1]);
         player.setLocation(newLoc);
 
@@ -310,25 +284,25 @@ public class GamePanel extends JPanel {
     static void getStartPoint(int team) {
 
         if (team == 0) {
-            field[0] = new int[] { 505, 940 };
-            field[1] = new int[] { 505, 850 };
-            field[2] = new int[] { 593, 850 };
-            field[3] = new int[] { 593, 940 };
+            field[0] = new int[] { 512, 938 };
+            field[1] = new int[] { 512, 850 };
+            field[2] = new int[] { 600, 850 };
+            field[3] = new int[] { 600, 938 };
         } else if (team == 1) {
-            field[0] = new int[] { 505, 145 };
-            field[1] = new int[] { 505, 55 };
-            field[2] = new int[] { 593, 55 };
-            field[3] = new int[] { 593, 145 };
+            field[0] = new int[] { 512, 145 };
+            field[1] = new int[] { 512, 55 };
+            field[2] = new int[] { 600, 55 };
+            field[3] = new int[] { 600, 145 };
         } else if (team == 2) {
-            field[0] = new int[] { 1300, 145 };
-            field[1] = new int[] { 1300, 55 };
-            field[2] = new int[] { 1388, 55 };
-            field[3] = new int[] { 1388, 145 };
+            field[0] = new int[] { 1305, 145 };
+            field[1] = new int[] { 1305, 55 };
+            field[2] = new int[] { 1393, 55 };
+            field[3] = new int[] { 1393, 145 };
         } else if (team == 3) {
-            field[0] = new int[] { 1300, 940 };
-            field[1] = new int[] { 1300, 850 };
-            field[2] = new int[] { 1388, 940 };
-            field[3] = new int[] { 1388, 850 };
+            field[0] = new int[] { 1305, 938 };
+            field[1] = new int[] { 1305, 850 };
+            field[2] = new int[] { 1393, 938 };
+            field[3] = new int[] { 1393, 850 };
         }
 
     }
@@ -336,60 +310,56 @@ public class GamePanel extends JPanel {
     static int[][] field = new int[48][];
 
     Point getField(int fieldNr, int team) {
-        field = new int[][] {
-                { 0, 0 },
-                { 0, 0 },
-                { 0, 0 },
-                { 0, 0 },
-                { 857, 938 },
-                { 857, 850 },
-                { 857, 760 },
-                { 857, 675 },
-                { 857, 585 },
-                { 768, 585 },
-                { 682, 585 },
-                { 592, 585 },
-                { 505, 585 },
-                { 505, 498 },
-                { 505, 410 },
-                { 592, 410 },
-                { 682, 410 },
-                { 769, 410 },
-                { 857, 410 },
-                { 857, 320 },
-                { 857, 235 },
-                { 857, 145 },
-                { 857, 58 },
-                { 945, 58 },
-                { 1033, 58 },
-                { 1033, 145 },
-                { 1033, 234 },
-                { 1033, 320 },
-                { 1033, 409 },
-                { 1122, 409 },
-                { 1210, 409 },
-                { 1298, 409 },
-                { 1386, 409 },
-                { 1386, 497 },
-                { 1386, 584 },
-                { 1299, 584 },
-                { 1209, 584 },
-                { 1122, 584 },
-                { 1034, 584 },
-                { 1034, 673 },
-                { 1034, 761 },
-                { 1034, 850 },
-                { 1034, 938 },
-                { 945, 938 },
-                { 945, 850 },
-                { 945, 760 },
-                { 945, 673 },
-                { 945, 585 } };
         getStartPoint(team);
-
-        for (
-
-                int i = 0; i < field.length; i++) {
+        // field[0] = new int[] { 10, 10 };
+        // field[1] = new int[] { 20, 20 };
+        // field[2] = new int[] { 30, 30 };
+        // field[3] = new int[] { 40, 40 };
+        field[4] = new int[] { 857, 938 };
+        field[5] = new int[] { 857, 850 };
+        field[6] = new int[] { 857, 760 };
+        field[7] = new int[] { 857, 675 };
+        field[8] = new int[] { 857, 585 };
+        field[9] = new int[] { 768, 585 };
+        field[10] = new int[] { 682, 585 };
+        field[11] = new int[] { 592, 585 };
+        field[12] = new int[] { 505, 585 };
+        field[13] = new int[] { 505, 498 };
+        field[14] = new int[] { 505, 410 };
+        field[15] = new int[] { 592, 410 };
+        field[16] = new int[] { 682, 410 };
+        field[17] = new int[] { 769, 410 };
+        field[18] = new int[] { 857, 410 };
+        field[19] = new int[] { 857, 320 };
+        field[20] = new int[] { 857, 235 };
+        field[21] = new int[] { 857, 145 };
+        field[22] = new int[] { 857, 58 };
+        field[23] = new int[] { 945, 58 };
+        field[24] = new int[] { 1033, 58 };
+        field[25] = new int[] { 1033, 145 };
+        field[26] = new int[] { 1033, 234 };
+        field[27] = new int[] { 1033, 320 };
+        field[28] = new int[] { 1033, 409 };
+        field[29] = new int[] { 1122, 409 };
+        field[30] = new int[] { 1210, 409 };
+        field[31] = new int[] { 1298, 409 };
+        field[32] = new int[] { 1386, 409 };
+        field[33] = new int[] { 1386, 497 };
+        field[34] = new int[] { 1386, 584 };
+        field[35] = new int[] { 1299, 584 };
+        field[36] = new int[] { 1209, 584 };
+        field[37] = new int[] { 1122, 584 };
+        field[38] = new int[] { 1034, 584 };
+        field[39] = new int[] { 1034, 673 };
+        field[40] = new int[] { 1034, 761 };
+        field[41] = new int[] { 1034, 850 };
+        field[42] = new int[] { 1034, 938 };
+        field[43] = new int[] { 945, 938 };
+        field[44] = new int[] { 945, 850 };
+        field[45] = new int[] { 945, 760 };
+        field[46] = new int[] { 945, 673 };
+        field[47] = new int[] { 945, 585 };
+        for (int i = 0; i < field.length; i++) {
             field[i][0] = wRatio(field[i][0]);
             field[i][1] = hRatio(field[i][1]);
         }
@@ -399,18 +369,14 @@ public class GamePanel extends JPanel {
     static Socket client;
     boolean searched;
 
-    JLabel mpBack;
-
     void mpMenu() {
 
         removeAll();
         setBackground(BackgroundColor);
 
         // Backbutton
-        if (mpBack == null) {
-            mpBack = backButton();
-        }
-        add(mpBack);
+        JLabel back = backButton();
+        add(back);
 
         // Multiplayer Title
         JLabel MPTitle = create(750, 250, "Multiplayer", Color.black, null, DefaultFont.deriveFont(125f), 0,
@@ -481,69 +447,57 @@ public class GamePanel extends JPanel {
         }
     }
 
-    JLabel back;
-    JLabel SettingsTitle;
-    JLabel fullscreen;
-    JLabel monitor;
-
     void settingsMenu() {
         removeAll();
         setBackground(BackgroundColor);
 
-        // Back Button
-        if (back == null) {
-            back = backButton();
-        }
+        JLabel back = backButton();
         add(back);
 
         // Settings
-        if (SettingsTitle == null) {
-            SettingsTitle = create(750, 250, "Settings", Color.black, null, DefaultFont.deriveFont(125f), 0, 0,
-                    null);
-        }
+        JLabel SettingsTitle = create(750, 250, "Settings", Color.black, null, DefaultFont.deriveFont(125f), 0, 0,
+                null);
         SettingsTitle.setLocation(center(SettingsTitle.getWidth(), getWidth()), 0);
+
         add(SettingsTitle);
 
         // Fullscreen Button
-        if (fullscreen == null) {
-            if (frame.isUndecorated()) {
-                fullscreen = create(250, 125, "Window", Color.BLACK, BackgroundColor, DefaultFont.deriveFont(50f), 5,
-                        45, null);
-            } else {
-                fullscreen = create(250, 125, "Fullscreen", Color.BLACK, BackgroundColor,
-                        DefaultFont.deriveFont(50f),
-                        5, 45, null);
-            }
-            fullscreen.setLocation(getWidth() / 5 * 2 - fullscreen.getWidth(),
-                    center(fullscreen.getHeight(), getHeight()));
-            fullscreen.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    if (e.getButton() == MouseEvent.BUTTON1) {
-                        frame.setVisible(false);
-                        frame.dispose();
-                        frame.setUndecorated(!frame.isUndecorated());
-                        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                        frame.setVisible(true);
-                    }
-                }
-            });
+        JLabel fullscreen;
+        if (frame.isUndecorated()) {
+            fullscreen = create(250, 125, "Window", Color.BLACK, BackgroundColor, DefaultFont.deriveFont(50f), 5,
+                    45, null);
+        } else {
+            fullscreen = create(250, 125, "Fullscreen", Color.BLACK, BackgroundColor,
+                    DefaultFont.deriveFont(50f),
+                    5, 45, null);
         }
+        fullscreen.setLocation(getWidth() / 5 * 2 - fullscreen.getWidth(),
+                center(fullscreen.getHeight(), getHeight()));
+        fullscreen.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    frame.setVisible(false);
+                    frame.dispose();
+                    frame.setUndecorated(!frame.isUndecorated());
+                    frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                    frame.setVisible(true);
+                }
+            }
+        });
         add(fullscreen);
 
         // Monitor Button
+        JLabel monitor;
         int nextScreen;
         if (f.currentDeviceNumber() < f.getDevices().length - 1) {
             nextScreen = f.currentDeviceNumber() + 1;
         } else {
             nextScreen = 0;
         }
-        if (monitor == null) {
-            monitor = create(250, 125, "Device: " + nextScreen, Color.BLACK, BackgroundColor,
-                    DefaultFont.deriveFont(50f),
-                    5,
-                    45, null);
-        }
+        monitor = create(250, 125, "Device: " + nextScreen, Color.BLACK, BackgroundColor, DefaultFont.deriveFont(50f),
+                5,
+                45, null);
         monitor.setLocation(getWidth() / 5 * 3,
                 center(monitor.getHeight(), getHeight()));
         monitor.addMouseListener(new MouseAdapter() {
@@ -567,22 +521,15 @@ public class GamePanel extends JPanel {
 
     }
 
-    JLabel Preview;
-    JLabel pauseBack;
-
     void pauseMenu() {
         removeAll();
         setBackground(BackgroundColor);
 
-        if (Preview == null) {
-            Preview = previewLabel();
-        }
+        JLabel Preview = previewLabel();
         Preview.setLocation(getWidth() / 2 - Preview.getWidth() / 2, getHeight() / 3 - Preview.getHeight() / 2);
         add(Preview);
 
-        if (pauseBack == null) {
-            pauseBack = backButton();
-        }
+        JLabel back = backButton();
         add(back);
     }
 
