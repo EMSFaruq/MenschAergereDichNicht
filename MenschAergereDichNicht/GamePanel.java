@@ -486,6 +486,16 @@ public class GamePanel extends JPanel {
     JLabel fullscreen;
     JLabel monitor;
 
+    int nextScreen() {
+        int next = 0;
+        if (f.currentDeviceNumber() < f.getDevices().length - 1) {
+            next = f.currentDeviceNumber() + 1;
+        } else {
+            next = 0;
+        }
+        return next;
+    }
+
     void settingsMenu() {
         removeAll();
         setBackground(BackgroundColor);
@@ -506,14 +516,15 @@ public class GamePanel extends JPanel {
 
         // Fullscreen Button
         if (fullscreen == null) {
+            String fullText;
+
             if (frame.isUndecorated()) {
-                fullscreen = create(250, 125, "Window", Color.BLACK, BackgroundColor, DefaultFont.deriveFont(50f), 5,
-                        45, null);
+                fullText = "Window";
             } else {
-                fullscreen = create(250, 125, "Fullscreen", Color.BLACK, BackgroundColor,
-                        DefaultFont.deriveFont(50f),
-                        5, 45, null);
+                fullText = "Fullscreen";
             }
+            fullscreen = create(250, 125, fullText, Color.BLACK, BackgroundColor, DefaultFont.deriveFont(50f), 5, 45,
+                    null);
             fullscreen.setLocation(getWidth() / 5 * 2 - fullscreen.getWidth(),
                     center(fullscreen.getHeight(), getHeight()));
             fullscreen.addMouseListener(new MouseAdapter() {
@@ -532,14 +543,8 @@ public class GamePanel extends JPanel {
         add(fullscreen);
 
         // Monitor Button
-        int nextScreen;
-        if (f.currentDeviceNumber() < f.getDevices().length - 1) {
-            nextScreen = f.currentDeviceNumber() + 1;
-        } else {
-            nextScreen = 0;
-        }
         if (monitor == null) {
-            monitor = create(250, 125, "Device: " + nextScreen, Color.BLACK, BackgroundColor,
+            monitor = create(250, 125, "Device: " + nextScreen(), Color.BLACK, BackgroundColor,
                     DefaultFont.deriveFont(50f),
                     5,
                     45, null);
@@ -551,14 +556,13 @@ public class GamePanel extends JPanel {
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     GraphicsDevice[] devices = f.getDevices();
+                    GraphicsConfiguration gc = devices[nextScreen()].getDefaultConfiguration();
                     frame.setVisible(false);
                     frame.dispose();
-                    GraphicsConfiguration gc = devices[nextScreen].getDefaultConfiguration();
                     Rectangle deviceInfo = gc.getBounds();
-                    frame.setLocation(deviceInfo.getLocation());
                     frame.setSize(deviceInfo.getSize());
                     setSize(deviceInfo.getSize());
-
+                    frame.setLocation(deviceInfo.getLocation());
                     frame.setVisible(true);
                 }
             }
