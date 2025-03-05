@@ -1,14 +1,14 @@
 package MenschAergereDichNicht;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 public class Frame {
 

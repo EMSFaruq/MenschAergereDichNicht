@@ -15,7 +15,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.net.Socket;
-import java.util.Scanner;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -556,7 +555,7 @@ public class GamePanel extends JPanel {
             public void mousePressed(MouseEvent e) {
                 if (e.getButton() == MouseEvent.BUTTON1) {
                     GraphicsDevice[] devices = f.getDevices();
-                    GraphicsConfiguration gc = devices[nextScreen()].getDefaultConfiguration();
+                    GraphicsConfiguration gc = f.getDefaultDevice().getDefaultConfiguration();
                     frame.setVisible(false);
                     frame.dispose();
                     Rectangle deviceInfo = gc.getBounds();
@@ -620,7 +619,7 @@ public class GamePanel extends JPanel {
     }
 
     JLabel previewLabel() {
-        return create(0, 0, "", Color.black, BackgroundColor, null, 0, 0,
+        return create(50, 50, "", Color.black, BackgroundColor, null, 0, 0,
                 new ImageIcon("MenschAergereDichNicht/Assets/Board/Preview.png"));
     }
 
